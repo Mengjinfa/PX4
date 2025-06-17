@@ -1,0 +1,3 @@
+/home/senen/PX4/build/CMakeFiles/px4_exploit.dir
+/home/senen/PX4/build/CMakeFiles/edit_cache.dir
+/home/senen/PX4/build/CMakeFiles/rebuild_cache.dir
