@@ -10,12 +10,11 @@
 const std::string DFLT_SERVER_URI("mqtt://47.123.5.22:1883");
 // const std::string DFLT_SERVER_URI("mqtt://192.168.1.169:1883");
 const std::string CLIENT_ID("paho_cpp_async_subscribesim");
-const std::string MQTTUSER("admin");
-const std::string MQTTPASSWORD("public");
-const std::string TOPICCMD("commandsender111");
+const std::string TOPICCMD("commandsender");
 const std::string TOPICBEIDOU1("testup");
 const std::string TOPICBEIDOU2("testup1");
-
+const std::string MQTTUSER("admin");
+const std::string MQTTPASSWORD("public");
 const int QOS = 2;
 const int N_RETRY_ATTEMPTS = 5;
 

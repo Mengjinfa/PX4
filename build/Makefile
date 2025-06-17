@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named px4_exploit
+# Target rules for targets named PX4
 
 # Build rule for target.
-px4_exploit: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 px4_exploit
-.PHONY : px4_exploit
+PX4: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PX4
+.PHONY : PX4
 
 # fast build rule for target.
-px4_exploit/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/build
-.PHONY : px4_exploit/fast
+PX4/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/build
+.PHONY : PX4/fast
 
 src/BeiDouModule.o: src/BeiDouModule.cpp.o
 .PHONY : src/BeiDouModule.o
 
 # target to build an object file
 src/BeiDouModule.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/BeiDouModule.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/BeiDouModule.cpp.o
 .PHONY : src/BeiDouModule.cpp.o
 
 src/BeiDouModule.i: src/BeiDouModule.cpp.i
@@ -142,7 +142,7 @@ src/BeiDouModule.i: src/BeiDouModule.cpp.i
 
 # target to preprocess a source file
 src/BeiDouModule.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/BeiDouModule.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/BeiDouModule.cpp.i
 .PHONY : src/BeiDouModule.cpp.i
 
 src/BeiDouModule.s: src/BeiDouModule.cpp.s
@@ -150,7 +150,7 @@ src/BeiDouModule.s: src/BeiDouModule.cpp.s
 
 # target to generate assembly for a file
 src/BeiDouModule.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/BeiDouModule.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/BeiDouModule.cpp.s
 .PHONY : src/BeiDouModule.cpp.s
 
 src/Global.o: src/Global.cpp.o
@@ -158,7 +158,7 @@ src/Global.o: src/Global.cpp.o
 
 # target to build an object file
 src/Global.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/Global.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/Global.cpp.o
 .PHONY : src/Global.cpp.o
 
 src/Global.i: src/Global.cpp.i
@@ -166,7 +166,7 @@ src/Global.i: src/Global.cpp.i
 
 # target to preprocess a source file
 src/Global.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/Global.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/Global.cpp.i
 .PHONY : src/Global.cpp.i
 
 src/Global.s: src/Global.cpp.s
@@ -174,7 +174,7 @@ src/Global.s: src/Global.cpp.s
 
 # target to generate assembly for a file
 src/Global.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/Global.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/Global.cpp.s
 .PHONY : src/Global.cpp.s
 
 src/april_tag_detector.o: src/april_tag_detector.cpp.o
@@ -182,7 +182,7 @@ src/april_tag_detector.o: src/april_tag_detector.cpp.o
 
 # target to build an object file
 src/april_tag_detector.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/april_tag_detector.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/april_tag_detector.cpp.o
 .PHONY : src/april_tag_detector.cpp.o
 
 src/april_tag_detector.i: src/april_tag_detector.cpp.i
@@ -190,7 +190,7 @@ src/april_tag_detector.i: src/april_tag_detector.cpp.i
 
 # target to preprocess a source file
 src/april_tag_detector.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/april_tag_detector.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/april_tag_detector.cpp.i
 .PHONY : src/april_tag_detector.cpp.i
 
 src/april_tag_detector.s: src/april_tag_detector.cpp.s
@@ -198,7 +198,7 @@ src/april_tag_detector.s: src/april_tag_detector.cpp.s
 
 # target to generate assembly for a file
 src/april_tag_detector.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/april_tag_detector.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/april_tag_detector.cpp.s
 .PHONY : src/april_tag_detector.cpp.s
 
 src/async_mqtt.o: src/async_mqtt.cpp.o
@@ -206,7 +206,7 @@ src/async_mqtt.o: src/async_mqtt.cpp.o
 
 # target to build an object file
 src/async_mqtt.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/async_mqtt.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/async_mqtt.cpp.o
 .PHONY : src/async_mqtt.cpp.o
 
 src/async_mqtt.i: src/async_mqtt.cpp.i
@@ -214,7 +214,7 @@ src/async_mqtt.i: src/async_mqtt.cpp.i
 
 # target to preprocess a source file
 src/async_mqtt.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/async_mqtt.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/async_mqtt.cpp.i
 .PHONY : src/async_mqtt.cpp.i
 
 src/async_mqtt.s: src/async_mqtt.cpp.s
@@ -222,7 +222,7 @@ src/async_mqtt.s: src/async_mqtt.cpp.s
 
 # target to generate assembly for a file
 src/async_mqtt.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/async_mqtt.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/async_mqtt.cpp.s
 .PHONY : src/async_mqtt.cpp.s
 
 src/detection_state_machine.o: src/detection_state_machine.cpp.o
@@ -230,7 +230,7 @@ src/detection_state_machine.o: src/detection_state_machine.cpp.o
 
 # target to build an object file
 src/detection_state_machine.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/detection_state_machine.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/detection_state_machine.cpp.o
 .PHONY : src/detection_state_machine.cpp.o
 
 src/detection_state_machine.i: src/detection_state_machine.cpp.i
@@ -238,7 +238,7 @@ src/detection_state_machine.i: src/detection_state_machine.cpp.i
 
 # target to preprocess a source file
 src/detection_state_machine.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/detection_state_machine.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/detection_state_machine.cpp.i
 .PHONY : src/detection_state_machine.cpp.i
 
 src/detection_state_machine.s: src/detection_state_machine.cpp.s
@@ -246,7 +246,7 @@ src/detection_state_machine.s: src/detection_state_machine.cpp.s
 
 # target to generate assembly for a file
 src/detection_state_machine.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/detection_state_machine.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/detection_state_machine.cpp.s
 .PHONY : src/detection_state_machine.cpp.s
 
 src/drone_controller.o: src/drone_controller.cpp.o
@@ -254,7 +254,7 @@ src/drone_controller.o: src/drone_controller.cpp.o
 
 # target to build an object file
 src/drone_controller.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/drone_controller.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/drone_controller.cpp.o
 .PHONY : src/drone_controller.cpp.o
 
 src/drone_controller.i: src/drone_controller.cpp.i
@@ -262,7 +262,7 @@ src/drone_controller.i: src/drone_controller.cpp.i
 
 # target to preprocess a source file
 src/drone_controller.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/drone_controller.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/drone_controller.cpp.i
 .PHONY : src/drone_controller.cpp.i
 
 src/drone_controller.s: src/drone_controller.cpp.s
@@ -270,7 +270,7 @@ src/drone_controller.s: src/drone_controller.cpp.s
 
 # target to generate assembly for a file
 src/drone_controller.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/drone_controller.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/drone_controller.cpp.s
 .PHONY : src/drone_controller.cpp.s
 
 src/logger.o: src/logger.cpp.o
@@ -278,7 +278,7 @@ src/logger.o: src/logger.cpp.o
 
 # target to build an object file
 src/logger.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/logger.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/logger.cpp.o
 .PHONY : src/logger.cpp.o
 
 src/logger.i: src/logger.cpp.i
@@ -286,7 +286,7 @@ src/logger.i: src/logger.cpp.i
 
 # target to preprocess a source file
 src/logger.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/logger.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/logger.cpp.i
 .PHONY : src/logger.cpp.i
 
 src/logger.s: src/logger.cpp.s
@@ -294,7 +294,7 @@ src/logger.s: src/logger.cpp.s
 
 # target to generate assembly for a file
 src/logger.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/logger.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/logger.cpp.s
 .PHONY : src/logger.cpp.s
 
 src/rc.o: src/rc.cpp.o
@@ -302,7 +302,7 @@ src/rc.o: src/rc.cpp.o
 
 # target to build an object file
 src/rc.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/rc.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/rc.cpp.o
 .PHONY : src/rc.cpp.o
 
 src/rc.i: src/rc.cpp.i
@@ -310,7 +310,7 @@ src/rc.i: src/rc.cpp.i
 
 # target to preprocess a source file
 src/rc.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/rc.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/rc.cpp.i
 .PHONY : src/rc.cpp.i
 
 src/rc.s: src/rc.cpp.s
@@ -318,7 +318,7 @@ src/rc.s: src/rc.cpp.s
 
 # target to generate assembly for a file
 src/rc.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/rc.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/rc.cpp.s
 .PHONY : src/rc.cpp.s
 
 src/sim_camera_module.o: src/sim_camera_module.cpp.o
@@ -326,7 +326,7 @@ src/sim_camera_module.o: src/sim_camera_module.cpp.o
 
 # target to build an object file
 src/sim_camera_module.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/sim_camera_module.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/sim_camera_module.cpp.o
 .PHONY : src/sim_camera_module.cpp.o
 
 src/sim_camera_module.i: src/sim_camera_module.cpp.i
@@ -334,7 +334,7 @@ src/sim_camera_module.i: src/sim_camera_module.cpp.i
 
 # target to preprocess a source file
 src/sim_camera_module.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/sim_camera_module.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/sim_camera_module.cpp.i
 .PHONY : src/sim_camera_module.cpp.i
 
 src/sim_camera_module.s: src/sim_camera_module.cpp.s
@@ -342,7 +342,7 @@ src/sim_camera_module.s: src/sim_camera_module.cpp.s
 
 # target to generate assembly for a file
 src/sim_camera_module.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/sim_camera_module.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/sim_camera_module.cpp.s
 .PHONY : src/sim_camera_module.cpp.s
 
 src/takeoff_and_land.o: src/takeoff_and_land.cpp.o
@@ -350,7 +350,7 @@ src/takeoff_and_land.o: src/takeoff_and_land.cpp.o
 
 # target to build an object file
 src/takeoff_and_land.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/takeoff_and_land.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/takeoff_and_land.cpp.o
 .PHONY : src/takeoff_and_land.cpp.o
 
 src/takeoff_and_land.i: src/takeoff_and_land.cpp.i
@@ -358,7 +358,7 @@ src/takeoff_and_land.i: src/takeoff_and_land.cpp.i
 
 # target to preprocess a source file
 src/takeoff_and_land.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/takeoff_and_land.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/takeoff_and_land.cpp.i
 .PHONY : src/takeoff_and_land.cpp.i
 
 src/takeoff_and_land.s: src/takeoff_and_land.cpp.s
@@ -366,7 +366,7 @@ src/takeoff_and_land.s: src/takeoff_and_land.cpp.s
 
 # target to generate assembly for a file
 src/takeoff_and_land.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/takeoff_and_land.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/takeoff_and_land.cpp.s
 .PHONY : src/takeoff_and_land.cpp.s
 
 src/target_tracker.o: src/target_tracker.cpp.o
@@ -374,7 +374,7 @@ src/target_tracker.o: src/target_tracker.cpp.o
 
 # target to build an object file
 src/target_tracker.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/target_tracker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/target_tracker.cpp.o
 .PHONY : src/target_tracker.cpp.o
 
 src/target_tracker.i: src/target_tracker.cpp.i
@@ -382,7 +382,7 @@ src/target_tracker.i: src/target_tracker.cpp.i
 
 # target to preprocess a source file
 src/target_tracker.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/target_tracker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/target_tracker.cpp.i
 .PHONY : src/target_tracker.cpp.i
 
 src/target_tracker.s: src/target_tracker.cpp.s
@@ -390,7 +390,7 @@ src/target_tracker.s: src/target_tracker.cpp.s
 
 # target to generate assembly for a file
 src/target_tracker.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/target_tracker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/target_tracker.cpp.s
 .PHONY : src/target_tracker.cpp.s
 
 src/telemetry_monitor.o: src/telemetry_monitor.cpp.o
@@ -398,7 +398,7 @@ src/telemetry_monitor.o: src/telemetry_monitor.cpp.o
 
 # target to build an object file
 src/telemetry_monitor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/telemetry_monitor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/telemetry_monitor.cpp.o
 .PHONY : src/telemetry_monitor.cpp.o
 
 src/telemetry_monitor.i: src/telemetry_monitor.cpp.i
@@ -406,7 +406,7 @@ src/telemetry_monitor.i: src/telemetry_monitor.cpp.i
 
 # target to preprocess a source file
 src/telemetry_monitor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/telemetry_monitor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/telemetry_monitor.cpp.i
 .PHONY : src/telemetry_monitor.cpp.i
 
 src/telemetry_monitor.s: src/telemetry_monitor.cpp.s
@@ -414,7 +414,7 @@ src/telemetry_monitor.s: src/telemetry_monitor.cpp.s
 
 # target to generate assembly for a file
 src/telemetry_monitor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/telemetry_monitor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/telemetry_monitor.cpp.s
 .PHONY : src/telemetry_monitor.cpp.s
 
 src/video_display.o: src/video_display.cpp.o
@@ -422,7 +422,7 @@ src/video_display.o: src/video_display.cpp.o
 
 # target to build an object file
 src/video_display.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/video_display.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/video_display.cpp.o
 .PHONY : src/video_display.cpp.o
 
 src/video_display.i: src/video_display.cpp.i
@@ -430,7 +430,7 @@ src/video_display.i: src/video_display.cpp.i
 
 # target to preprocess a source file
 src/video_display.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/video_display.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/video_display.cpp.i
 .PHONY : src/video_display.cpp.i
 
 src/video_display.s: src/video_display.cpp.s
@@ -438,7 +438,7 @@ src/video_display.s: src/video_display.cpp.s
 
 # target to generate assembly for a file
 src/video_display.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/video_display.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/video_display.cpp.s
 .PHONY : src/video_display.cpp.s
 
 src/vision_guided_mission_flying.o: src/vision_guided_mission_flying.cpp.o
@@ -446,7 +446,7 @@ src/vision_guided_mission_flying.o: src/vision_guided_mission_flying.cpp.o
 
 # target to build an object file
 src/vision_guided_mission_flying.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/vision_guided_mission_flying.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/vision_guided_mission_flying.cpp.o
 .PHONY : src/vision_guided_mission_flying.cpp.o
 
 src/vision_guided_mission_flying.i: src/vision_guided_mission_flying.cpp.i
@@ -454,7 +454,7 @@ src/vision_guided_mission_flying.i: src/vision_guided_mission_flying.cpp.i
 
 # target to preprocess a source file
 src/vision_guided_mission_flying.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/vision_guided_mission_flying.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/vision_guided_mission_flying.cpp.i
 .PHONY : src/vision_guided_mission_flying.cpp.i
 
 src/vision_guided_mission_flying.s: src/vision_guided_mission_flying.cpp.s
@@ -462,7 +462,7 @@ src/vision_guided_mission_flying.s: src/vision_guided_mission_flying.cpp.s
 
 # target to generate assembly for a file
 src/vision_guided_mission_flying.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4_exploit.dir/build.make CMakeFiles/px4_exploit.dir/src/vision_guided_mission_flying.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/src/vision_guided_mission_flying.cpp.s
 .PHONY : src/vision_guided_mission_flying.cpp.s
 
 # Help Target
@@ -473,7 +473,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... px4_exploit"
+	@echo "... PX4"
 	@echo "... src/BeiDouModule.o"
 	@echo "... src/BeiDouModule.i"
 	@echo "... src/BeiDouModule.s"

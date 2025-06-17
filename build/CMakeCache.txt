@@ -153,7 +153,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=px4_exploit
+CMAKE_PROJECT_NAME:STATIC=PX4
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -519,6 +519,15 @@ PKG_CONFIG_ARGN:STRING=
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 
+//Value Computed by CMake
+PX4_BINARY_DIR:STATIC=/home/senen/PX4/build
+
+//Value Computed by CMake
+PX4_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+PX4_SOURCE_DIR:STATIC=/home/senen/PX4
+
 //The directory containing a CMake configuration file for PahoMqttCpp.
 PahoMqttCpp_DIR:PATH=/usr/local/lib/cmake/PahoMqttCpp
 
@@ -713,15 +722,6 @@ pkgcfg_lib__OPENSSL_ssl:FILEPATH=/usr/lib/x86_64-linux-gnu/libssl.so
 
 //The directory containing a CMake configuration file for pugixml.
 pugixml_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/pugixml
-
-//Value Computed by CMake
-px4_exploit_BINARY_DIR:STATIC=/home/senen/PX4/build
-
-//Value Computed by CMake
-px4_exploit_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-px4_exploit_SOURCE_DIR:STATIC=/home/senen/PX4
 
 //The directory containing a CMake configuration file for sdformat9.
 sdformat9_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/sdformat9

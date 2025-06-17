@@ -1,12 +1,10 @@
 #ifndef BEIDOU_H
 #define BEIDOU_H
-
 #include "async_mqtt.hpp"
 #include "singleton.h"
 #include <iostream>
 
 #define MAX_NUM 2
-
 struct Position
 {
     double longitude;

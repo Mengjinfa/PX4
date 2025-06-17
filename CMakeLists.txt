@@ -2,23 +2,23 @@
 cmake_minimum_required(VERSION 3.14)
 
 # 项目名称及语言设置
-project(px4_exploit LANGUAGES CXX)
+project(PX4 LANGUAGES CXX)
 
 # 设置 C++ 标准
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
-# 查找其他依赖库
+# 查找其他依赖库（优先使用 CONFIG 模式）
 find_package(fmt REQUIRED CONFIG)     
 find_package(spdlog REQUIRED CONFIG) 
 find_package(PahoMqttCpp REQUIRED CONFIG)
 find_package(Threads REQUIRED)
 find_package(MAVSDK REQUIRED CONFIG)
-find_package(OpenCV REQUIRED)
+find_package(OpenCV REQUIRED) # 可选：只包含需要的模块
 find_package(nlohmann_json REQUIRED)
 find_package(pugixml REQUIRED)
-find_package(apriltag QUIET)
+find_package(apriltag QUIET)  # AprilTag 可能需要手动构建并配置路径
 find_package(gazebo REQUIRED)
 
 # 添加可执行目标
