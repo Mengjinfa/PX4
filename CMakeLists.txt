@@ -23,11 +23,10 @@ include_directories(${CMAKE_SOURCE_DIR}/third_party/eigen)
 
 
 add_executable(${PROJECT_NAME}
-    src/async_mqtt.cpp
+    src/apriltag_tracker.cpp
+    src/mavsdk_members.cpp
     src/sim_camera_module.cpp
     src/telemetry_monitor.cpp
-    src/apriltag_tracker.cpp
-    src/detection_state_machine.cpp
     src/logger.cpp
     src/BeiDouModule.cpp
     src/mqtt_client.cpp
@@ -50,12 +49,13 @@ target_include_directories(${PROJECT_NAME}
 link_directories(${GAZEBO_LIBRARY_DIRS})
 add_definitions(${GAZEBO_CXX_FLAGS})
 
-# 编译宏定义
+# 仿真编译宏定义
 target_compile_definitions(${PROJECT_NAME}
     PRIVATE
     SIMULATION
 )
 
+# 真机编译宏定义
 # target_compile_definitions(${PROJECT_NAME}
 #     PRIVATE
 #     REAL_HARDWARE

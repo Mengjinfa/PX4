@@ -2,7 +2,7 @@
 #define STATE_MACHINE_HPP
 
 #include "apriltag_tracker.hpp"
-#include "async_mqtt.hpp"
+#include "mavsdk_members.hpp"
 #include "pid.hpp"
 
 #include <mavsdk/mavsdk.h>
@@ -38,31 +38,27 @@ class StateMachine
 public:
     StateMachine();
 
-    void remoteControlMode(int rc_channel_8_value); // 处理遥控器模式切换
-    void StartStateMachine(Mavsdk_members &mavsdk);
-    void updateState(Mavsdk_members &mavsdk); // 更新状态机状态
-
-    void waitingState(Mavsdk_members &mavsdk);        // 等待状态：检测地标稳定性
-    void adjustPositionState(Mavsdk_members &mavsdk); // 位置调整状态：对准地标
-    void circleState(Mavsdk_members &mavsdk);         // 绕圈搜索状态：地标丢失时搜索
-    void landingState(Mavsdk_members &mavsdk);        // 降落状态：执行着陆流程
-
-    void publishBodyFrameVelocity(Mavsdk_members &mavsdk, double forward_vel, double right_vel, double descent_speed, double yaw_rate);
+    void StartStateMachine(mavsdk::Telemetry::PositionNed current_position, double current_altitude); // 启动状态机
+    void updateState(Mavsdk_members &mavsdk);                                                         // 更新状态机状态
 
     void getLandmark(const AprilTagData &landmark);             // 获取地标数据
     void getPIDOut(const PIDOutput &pid_output_);               // 获取PID计算结果
     std::string landingStateToString(LandingState state) const; // 获取降落状态字符串表示
-    LandingState getCurrentState() const;                       // 获取当前状态
+    LandingState getCurrentStateMachine() const;                // 获取当前状态
 
 private:
     std::chrono::time_point<std::chrono::system_clock> getCurrentTime(); // 获取当前时间点
+    void waitingState(Mavsdk_members &mavsdk);                           // 等待状态：检测地标稳定性
+    void adjustPositionState(Mavsdk_members &mavsdk);                    // 位置调整状态：对准地标
+    void circleState(Mavsdk_members &mavsdk);                            // 绕圈搜索状态：地标丢失时搜索
+    void landingState(Mavsdk_members &mavsdk);                           // 降落状态：执行着陆流程
 
 private:
     AprilTagData landmark_; // 地标数据
     PIDOutput PID_out_;     // PID输出
 
-    mavsdk::Telemetry::PositionNed current_position; // 当前无人机位置(NED坐标系)
-    double current_altitude;                         // 当前相对起飞点的高度(m
+    mavsdk::Telemetry::PositionNed m_current_position; // 当前无人机位置(NED坐标系)
+    double m_current_altitude;                         // 当前相对起飞点的高度(m
 
     LandingState state_;      // 当前状态
     LandingState last_state_; // 上一状态

@@ -10,11 +10,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/senen/px4/src/BeiDouModule.cpp" "CMakeFiles/px4.dir/src/BeiDouModule.cpp.o" "gcc" "CMakeFiles/px4.dir/src/BeiDouModule.cpp.o.d"
   "/home/senen/px4/src/apriltag_tracker.cpp" "CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o" "gcc" "CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o.d"
-  "/home/senen/px4/src/async_mqtt.cpp" "CMakeFiles/px4.dir/src/async_mqtt.cpp.o" "gcc" "CMakeFiles/px4.dir/src/async_mqtt.cpp.o.d"
-  "/home/senen/px4/src/detection_state_machine.cpp" "CMakeFiles/px4.dir/src/detection_state_machine.cpp.o" "gcc" "CMakeFiles/px4.dir/src/detection_state_machine.cpp.o.d"
   "/home/senen/px4/src/flight_procedure.cpp" "CMakeFiles/px4.dir/src/flight_procedure.cpp.o" "gcc" "CMakeFiles/px4.dir/src/flight_procedure.cpp.o.d"
   "/home/senen/px4/src/logger.cpp" "CMakeFiles/px4.dir/src/logger.cpp.o" "gcc" "CMakeFiles/px4.dir/src/logger.cpp.o.d"
   "/home/senen/px4/src/main.cpp" "CMakeFiles/px4.dir/src/main.cpp.o" "gcc" "CMakeFiles/px4.dir/src/main.cpp.o.d"
+  "/home/senen/px4/src/mavsdk_members.cpp" "CMakeFiles/px4.dir/src/mavsdk_members.cpp.o" "gcc" "CMakeFiles/px4.dir/src/mavsdk_members.cpp.o.d"
   "/home/senen/px4/src/mqtt_client.cpp" "CMakeFiles/px4.dir/src/mqtt_client.cpp.o" "gcc" "CMakeFiles/px4.dir/src/mqtt_client.cpp.o.d"
   "/home/senen/px4/src/pid.cpp" "CMakeFiles/px4.dir/src/pid.cpp.o" "gcc" "CMakeFiles/px4.dir/src/pid.cpp.o.d"
   "/home/senen/px4/src/sim_camera_module.cpp" "CMakeFiles/px4.dir/src/sim_camera_module.cpp.o" "gcc" "CMakeFiles/px4.dir/src/sim_camera_module.cpp.o.d"

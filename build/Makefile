@@ -177,54 +177,6 @@ src/apriltag_tracker.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/apriltag_tracker.cpp.s
 .PHONY : src/apriltag_tracker.cpp.s
 
-src/async_mqtt.o: src/async_mqtt.cpp.o
-.PHONY : src/async_mqtt.o
-
-# target to build an object file
-src/async_mqtt.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/async_mqtt.cpp.o
-.PHONY : src/async_mqtt.cpp.o
-
-src/async_mqtt.i: src/async_mqtt.cpp.i
-.PHONY : src/async_mqtt.i
-
-# target to preprocess a source file
-src/async_mqtt.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/async_mqtt.cpp.i
-.PHONY : src/async_mqtt.cpp.i
-
-src/async_mqtt.s: src/async_mqtt.cpp.s
-.PHONY : src/async_mqtt.s
-
-# target to generate assembly for a file
-src/async_mqtt.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/async_mqtt.cpp.s
-.PHONY : src/async_mqtt.cpp.s
-
-src/detection_state_machine.o: src/detection_state_machine.cpp.o
-.PHONY : src/detection_state_machine.o
-
-# target to build an object file
-src/detection_state_machine.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/detection_state_machine.cpp.o
-.PHONY : src/detection_state_machine.cpp.o
-
-src/detection_state_machine.i: src/detection_state_machine.cpp.i
-.PHONY : src/detection_state_machine.i
-
-# target to preprocess a source file
-src/detection_state_machine.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/detection_state_machine.cpp.i
-.PHONY : src/detection_state_machine.cpp.i
-
-src/detection_state_machine.s: src/detection_state_machine.cpp.s
-.PHONY : src/detection_state_machine.s
-
-# target to generate assembly for a file
-src/detection_state_machine.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/detection_state_machine.cpp.s
-.PHONY : src/detection_state_machine.cpp.s
-
 src/flight_procedure.o: src/flight_procedure.cpp.o
 .PHONY : src/flight_procedure.o
 
@@ -296,6 +248,30 @@ src/main.s: src/main.cpp.s
 src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
+
+src/mavsdk_members.o: src/mavsdk_members.cpp.o
+.PHONY : src/mavsdk_members.o
+
+# target to build an object file
+src/mavsdk_members.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/mavsdk_members.cpp.o
+.PHONY : src/mavsdk_members.cpp.o
+
+src/mavsdk_members.i: src/mavsdk_members.cpp.i
+.PHONY : src/mavsdk_members.i
+
+# target to preprocess a source file
+src/mavsdk_members.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/mavsdk_members.cpp.i
+.PHONY : src/mavsdk_members.cpp.i
+
+src/mavsdk_members.s: src/mavsdk_members.cpp.s
+.PHONY : src/mavsdk_members.s
+
+# target to generate assembly for a file
+src/mavsdk_members.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/mavsdk_members.cpp.s
+.PHONY : src/mavsdk_members.cpp.s
 
 src/mqtt_client.o: src/mqtt_client.cpp.o
 .PHONY : src/mqtt_client.o
@@ -432,12 +408,6 @@ help:
 	@echo "... src/apriltag_tracker.o"
 	@echo "... src/apriltag_tracker.i"
 	@echo "... src/apriltag_tracker.s"
-	@echo "... src/async_mqtt.o"
-	@echo "... src/async_mqtt.i"
-	@echo "... src/async_mqtt.s"
-	@echo "... src/detection_state_machine.o"
-	@echo "... src/detection_state_machine.i"
-	@echo "... src/detection_state_machine.s"
 	@echo "... src/flight_procedure.o"
 	@echo "... src/flight_procedure.i"
 	@echo "... src/flight_procedure.s"
@@ -447,6 +417,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/mavsdk_members.o"
+	@echo "... src/mavsdk_members.i"
+	@echo "... src/mavsdk_members.s"
 	@echo "... src/mqtt_client.o"
 	@echo "... src/mqtt_client.i"
 	@echo "... src/mqtt_client.s"

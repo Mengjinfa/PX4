@@ -1,6 +1,7 @@
 #ifndef BEIDOU_HPP
 #define BEIDOU_HPP
-#include "async_mqtt.hpp"
+
+#include "mavsdk_members.hpp"
 #include "singleton.hpp"
 #include <iostream>
 

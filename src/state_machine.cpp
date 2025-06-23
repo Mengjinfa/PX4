@@ -1,4 +1,5 @@
 #include "state_machine.hpp"
+#include "flight_procedure.hpp"
 #include "telemetry_monitor.hpp"
 
 #include <cerrno>
@@ -24,65 +25,19 @@ StateMachine::StateMachine()
     start_machine_flag.flag = false;     // 全局状态机标志初始为false
 }
 
-/**
- * @brief 处理遥控器模式切换的函数
- * @param rc_channel_8_value 遥控器第8通道的值
- * 根据遥控器第8通道的值来切换无人机的飞行模式，主要处理三种情况：
- * 1. 通道值在900-1100之间时，切换到OFFBOARD模式并开始降落流程
- * 2. 通道值在1900-2100之间时，切换到POSCTL模式并停止降落流程
- * 3. 其他值时，停止控制并保持IDLE状态
- */
-void StateMachine::remoteControlMode(int rc_channel_8_value)
+// 启动状态机函数
+void StateMachine::StartStateMachine(mavsdk::Telemetry::PositionNed current_position, double current_altitude)
 {
-    // 处理遥控器第8通道值在900-1100之间的情况，切换到OFFBOARD模式
-    if (rc_channel_8_value >= 900 && rc_channel_8_value <= 1100)
-    {
-        // 若当前状态不是降落状态，则执行模式切换
-        if (state_ != LandingState::LANDING)
-        {
-            start_landing_flag_ = true;                  // 启动降落标志
-            state_ = LandingState::WAITING;              // 切换到等待状态
-            std::cout << "切换到 板外模式" << std::endl; // 输出模式切换信息
-        }
-    }
-    // 处理遥控器第8通道值在1900-2100之间的情况，切换到POSCTL模式
-    else if (rc_channel_8_value >= 1900 && rc_channel_8_value <= 2100)
-    {
-        start_landing_flag_ = false;                 // 关闭降落标志
-        state_ = LandingState::IDLE;                 // 切换到空闲状态
-        std::cout << "切换到 位置模式" << std::endl; // 输出模式切换信息
-    }
-    else // 处理其他通道值的情况
-    {
-        start_landing_flag_ = false; // 关闭降落标志
-        state_ = LandingState::IDLE; // 切换到空闲状态
-    }
-}
+    m_current_altitude = current_altitude; // 记录当前高度
 
-void StateMachine::StartStateMachine(Mavsdk_members &mavsdk)
-{
-    Offboard &offboard = mavsdk.offboard;
-    // Action &action = mavsdk.action;
-
-    if (start_machine_flag.flag)
+    // 仅在首次检测到启动标志时记录位置并初始化状态
+    if (start_machine_flag.flag && (start_landing_flag_ == false))
     {
-        // 若当前状态不是降落状态，则执行模式切换
-        if ((state_ != LandingState::LANDING) && state_ != LandingState::LANDING)
-        {
-            offboard.start(); // 切换到OFFBOARD模式
-            std::cout << "切换到 板外模式" << std::endl;
+        m_current_position = current_position; // 记录当前位置为降落起始点
 
-            start_landing_flag_ = true;             // 启动降落标志
-            state_ = LandingState::ADJUST_POSITION; // 切换到等待状态
-        }
-    }
-    else
-    {
-        // action.set_flight_mode("POSITION");
-
-        start_landing_flag_ = false;                 // 关闭降落标志
-        state_ = LandingState::IDLE;                 // 切换到空闲状态
-        std::cout << "切换到 位置模式" << std::endl; // 输出模式切换信息
+        state_ = LandingState::WAITING; // 设置为等待状态
+        start_landing_flag_ = true;     // 标记已启动降落流程
+        std::cout << "降落状态机已启动，初始位置已记录" << std::endl;
     }
 }
 
@@ -94,12 +49,6 @@ void StateMachine::StartStateMachine(Mavsdk_members &mavsdk)
  */
 void StateMachine::updateState(Mavsdk_members &mavsdk)
 {
-    Telemetry &telemetry = mavsdk.telemetry;
-    TelemetryMonitor monitor(telemetry);
-
-    current_position = monitor.getCurrentPosition();          // 获取当前无人机位置(NED坐标系)
-    current_altitude = monitor.getCurrentRelativeAltitudeM(); // 获取当前相对起飞点的高度
-
     // 检测状态是否发生变化
     if (state_ != last_state_)
     {
@@ -145,6 +94,9 @@ void StateMachine::updateState(Mavsdk_members &mavsdk)
  */
 void StateMachine::waitingState(Mavsdk_members &mavsdk)
 {
+    // 保持当前位置
+    offboard_flight_position(mavsdk, m_current_position.north_m, m_current_position.east_m, m_current_position.down_m, 90.0);
+
     // 检查是否已等待5秒
     if (std::chrono::duration_cast<std::chrono::duration<double>>(getCurrentTime() - waiting_state_time_).count() >= 5.0)
     {
@@ -154,7 +106,7 @@ void StateMachine::waitingState(Mavsdk_members &mavsdk)
             state_ = LandingState::ADJUST_POSITION; // 检测次数足够，切换到位置调整状态
         }
         else
-        {                                  // 地标检测次数不足，认为地标不稳定或丢失
+        {
             state_ = LandingState::CIRCLE; // 切换到绕圈搜索状态
         }
         landmark_detection_count_ = 0; // 重置检测计数
@@ -180,11 +132,11 @@ void StateMachine::waitingState(Mavsdk_members &mavsdk)
 void StateMachine::adjustPositionState(Mavsdk_members &mavsdk)
 {
     // 当高度高于0.5米时执行位置调整
-    if (current_altitude > 0.5)
+    if (m_current_altitude > 0.5)
     {
-        int height_level = static_cast<int>(current_altitude / 0.5); // 按0.5米分层计算高度层级
-        int position_tolerance = 0;                                  // 位置容忍度
-        double descent_speed = 0.0;                                  // 下降速度
+        int height_level = static_cast<int>(m_current_altitude / 0.5); // 按0.5米分层计算高度层级
+        int position_tolerance = 0;                                    // 位置容忍度
+        double descent_speed = 0.0;                                    // 下降速度
 
         // 根据高度层级设置不同的位置容忍度和下降速度
         switch (height_level)
@@ -219,7 +171,7 @@ void StateMachine::adjustPositionState(Mavsdk_members &mavsdk)
                 break;
         }
 
-        descent_speed = descent_speed * 0.5; // 调整下降速度
+        // descent_speed = descent_speed * 0.5; // 调整下降速度
 
         // 处理地标可见的情况
         if (landmark_.iffind)
@@ -228,12 +180,12 @@ void StateMachine::adjustPositionState(Mavsdk_members &mavsdk)
             if (std::abs(landmark_.err_x) < position_tolerance && std::abs(landmark_.err_y) < position_tolerance)
             {
                 // 误差在容忍度内，开始下降
-                publishBodyFrameVelocity(mavsdk, PID_out_.x, PID_out_.y, -descent_speed, 0.0);
+                offboard_flight_body_velocity(mavsdk, PID_out_.x, PID_out_.y, descent_speed, 0.0);
             }
             else
             {
                 // 误差超出容忍度，水平移动调整位置
-                publishBodyFrameVelocity(mavsdk, PID_out_.x, PID_out_.y, -0.001, 0.0);
+                offboard_flight_body_velocity(mavsdk, PID_out_.x, PID_out_.y, 0.01, 0.0);
             }
 
             // 检测到地标，重置丢失标志
@@ -252,7 +204,7 @@ void StateMachine::adjustPositionState(Mavsdk_members &mavsdk)
                 // 地标丢失超过3秒，切换到绕圈搜索状态
                 if (std::chrono::duration_cast<std::chrono::duration<double>>(getCurrentTime() - landmark_loss_start_time_).count() >= 3.0)
                 {
-                    // state_ = LandingState::CIRCLE;
+                    state_ = LandingState::CIRCLE;
                     landmark_loss_flag_ = false;
                 }
             }
@@ -273,13 +225,11 @@ void StateMachine::adjustPositionState(Mavsdk_members &mavsdk)
  */
 void StateMachine::circleState(Mavsdk_members &mavsdk)
 {
-    Offboard &offboard = mavsdk.offboard;
-
     // 当高度大于1.0米时执行绕圈搜索
-    if (current_altitude > 1.0)
+    if (m_current_altitude > 1.0)
     {
         static bool first_entry = true;
-        // static double start_angle = 0.0;
+        static double start_angle = 0.0;
         static std::chrono::time_point<std::chrono::system_clock> circle_start_time;
 
         // 首次进入绕圈搜索状态时的初始化
@@ -296,30 +246,34 @@ void StateMachine::circleState(Mavsdk_members &mavsdk)
         // 如果处于过渡时间范围内
         if (elapsed_time <= transition_time)
         {
-            // double ratio = elapsed_time / transition_time;         // 计算过渡比例
-            // double target_angle = ANGULAR_VELOCITY * elapsed_time; // 计算目标角度
-
             // 设置 Offboard 模式下的位置指令
             Offboard::PositionNedYaw setpoint_1{};
-            setpoint_1.north_m = 0;
-            setpoint_1.east_m = 0;
-            setpoint_1.down_m = -current_altitude; // 保持当前高度
-            setpoint_1.yaw_deg = 0.0f;             // 保持航向不变
 
-            // 发送位置指令
-            offboard.set_position_ned(setpoint_1);
+            double ratio = elapsed_time / transition_time;
+            double target_angle = ANGULAR_VELOCITY * elapsed_time;
+            double target_x = m_current_position.north_m + RADIUS * cos(target_angle);
+            double target_y = m_current_position.east_m + RADIUS * sin(target_angle);
+
+            // 平滑过渡到目标圆周
+            setpoint_1.north_m = m_current_position.north_m + ratio * (target_x - m_current_position.north_m);
+            setpoint_1.east_m = m_current_position.east_m + ratio * (target_y - m_current_position.east_m);
+            setpoint_1.down_m = m_current_position.down_m;
+
+            offboard_flight_position(mavsdk, setpoint_1.north_m, setpoint_1.east_m, setpoint_1.down_m, 90.0); // 发送位置指令
         }
         else
         {
             // 设置 Offboard 模式下的位置指令
             Offboard::PositionNedYaw setpoint_2{};
-            setpoint_2.north_m = 0;
-            setpoint_2.east_m = 0;
-            setpoint_2.down_m = -current_altitude;
-            setpoint_2.yaw_deg = 0.0f;
 
-            // 发送位置指令
-            offboard.set_position_ned(setpoint_2);
+            double angle = start_angle + ANGULAR_VELOCITY * (elapsed_time - transition_time);
+
+            // 平滑过渡到目标圆周
+            setpoint_2.north_m = m_current_position.north_m + RADIUS * cos(angle);
+            setpoint_2.east_m = m_current_position.east_m + RADIUS * sin(angle);
+            setpoint_2.down_m = m_current_position.down_m;
+
+            offboard_flight_position(mavsdk, setpoint_2.north_m, setpoint_2.east_m, setpoint_2.down_m, 90.0); // 发送位置指令
         }
 
         // 检测到地标时切换回位置调整状态
@@ -357,16 +311,16 @@ void StateMachine::landingState(Mavsdk_members &mavsdk)
     }
 
     // 高度大于0.5米且降落时间小于5秒时，继续调整降落
-    if (current_altitude > 0.5 && std::chrono::duration_cast<std::chrono::duration<double>>(getCurrentTime() - landing_start_time).count() < 5.0)
+    if (m_current_altitude > 0.5 && std::chrono::duration_cast<std::chrono::duration<double>>(getCurrentTime() - landing_start_time).count() < 5.0)
     {
         // 地标可见时，带位置调整下降
         if (landmark_.iffind)
         {
-            publishBodyFrameVelocity(mavsdk, PID_out_.x, PID_out_.y, -0.2, 0.0); // 下降速度0.2m/s
+            offboard_flight_body_velocity(mavsdk, PID_out_.x, PID_out_.y, 0.2, 0.0); // 下降速度0.2m/s
         }
         else // 地标丢失时，垂直下降
         {
-            publishBodyFrameVelocity(mavsdk, 0.0, 0.0, -0.2, 0.0);
+            offboard_flight_body_velocity(mavsdk, 0.0, 0.0, 0.2, 0.0);
         }
     }
     else // 切换到自动降落模式
@@ -376,30 +330,6 @@ void StateMachine::landingState(Mavsdk_members &mavsdk)
         timer_started_ = false;                          // 重置计时器标志
         start_landing_flag_ = false;                     // 关闭降落标志
     }
-}
-
-/**
- * @brief 发布机体坐标系下的速度指令
- * @param vx 前向速度 (m/s)
- * @param vy 右向速度 (m/s)
- * @param vz 下向速度 (m/s)
- * @param yaw_rate 偏航角速度 (rad/s)
- * 该函数用于在机体坐标系下控制无人机的运动，
- * 实际应用中需根据具体无人机平台进行调整
- */
-void StateMachine::publishBodyFrameVelocity(Mavsdk_members &mavsdk, double forward_vel, double right_vel, double descent_speed, double yaw_rate)
-{
-    Offboard &offboard = mavsdk.offboard;
-
-    Offboard::VelocityBodyYawspeed velocity{}; // 创建速度指令结构体
-
-    velocity.forward_m_s = forward_vel; // 前后速度
-    velocity.right_m_s = right_vel;     // 左右速度
-    velocity.down_m_s = descent_speed;  // 下降速度
-    velocity.yawspeed_deg_s = yaw_rate; // 保持航向不变
-
-    // 发送速度指令
-    offboard.set_velocity_body(velocity);
 }
 
 /**
@@ -452,7 +382,7 @@ std::string StateMachine::landingStateToString(LandingState state) const
  * @brief 获取当前状态
  * @return 当前状态枚举值
  */
-LandingState StateMachine::getCurrentState() const
+LandingState StateMachine::getCurrentStateMachine() const
 {
     return state_; // 返回当前状态
 }

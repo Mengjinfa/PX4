@@ -370,47 +370,7 @@ CMakeFiles/px4.dir/src/state_machine.cpp.o: \
  /usr/local/include/opencv4/opencv2/video.hpp \
  /usr/local/include/opencv4/opencv2/video/tracking.hpp \
  /usr/local/include/opencv4/opencv2/video/background_segm.hpp \
- /usr/include/c++/9/thread /home/senen/px4/include/async_mqtt.hpp \
- /home/senen/px4/include/logger.hpp /usr/include/spdlog/logger.h \
- /usr/include/spdlog/common.h /usr/include/spdlog/tweakme.h \
- /usr/include/spdlog/details/null_mutex.h /usr/include/spdlog/fmt/fmt.h \
- /usr/include/spdlog/fmt/bundled/core.h /usr/include/c++/9/iterator \
- /usr/include/c++/9/bits/stream_iterator.h \
- /usr/include/spdlog/fmt/bundled/format.h \
- /usr/include/spdlog/fmt/bundled/core.h \
- /usr/include/spdlog/details/log_msg.h \
- /usr/include/spdlog/details/backtracer.h \
- /usr/include/spdlog/details/log_msg_buffer.h \
- /usr/include/spdlog/details/circular_q.h /usr/include/c++/9/cassert \
- /usr/include/spdlog/sinks/base_sink.h /usr/include/spdlog/sinks/sink.h \
- /usr/include/spdlog/formatter.h /usr/local/include/mqtt/async_client.h \
- /usr/local/include/MQTTAsync.h \
- /usr/local/include/MQTTExportDeclarations.h \
- /usr/local/include/MQTTProperties.h /usr/local/include/MQTTReasonCodes.h \
- /usr/local/include/MQTTSubscribeOpts.h \
- /usr/local/include/MQTTClientPersistence.h \
- /usr/local/include/mqtt/callback.h \
- /usr/local/include/mqtt/delivery_token.h \
- /usr/local/include/mqtt/message.h /usr/local/include/mqtt/buffer_ref.h \
- /usr/local/include/mqtt/types.h /usr/local/include/mqtt/reason_code.h \
- /usr/local/include/mqtt/exception.h /usr/local/include/mqtt/platform.h \
- /usr/local/include/mqtt/export.h /usr/local/include/mqtt/properties.h \
- /usr/local/include/MQTTProperties.h /usr/local/include/mqtt/token.h \
- /usr/include/c++/9/condition_variable \
- /usr/local/include/mqtt/iaction_listener.h \
- /usr/local/include/mqtt/server_response.h \
- /usr/local/include/mqtt/string_collection.h \
- /usr/local/include/mqtt/create_options.h /usr/include/c++/9/variant \
- /usr/local/include/mqtt/iclient_persistence.h \
- /usr/local/include/mqtt/buffer_view.h /usr/local/include/mqtt/event.h \
- /usr/local/include/mqtt/iasync_client.h \
- /usr/local/include/mqtt/connect_options.h \
- /usr/local/include/mqtt/ssl_options.h /usr/local/include/mqtt/topic.h \
- /usr/local/include/mqtt/subscribe_options.h \
- /usr/local/include/MQTTSubscribeOpts.h \
- /usr/local/include/mqtt/will_options.h \
- /usr/local/include/mqtt/disconnect_options.h \
- /usr/local/include/mqtt/thread_queue.h \
+ /usr/include/c++/9/thread /home/senen/px4/include/mavsdk_members.hpp \
  /usr/local/include/mavsdk/mavsdk.h \
  /usr/local/include/mavsdk/deprecated.h \
  /usr/local/include/mavsdk/handle.h /usr/local/include/mavsdk/system.h \
@@ -667,6 +627,7 @@ CMakeFiles/px4.dir/src/state_machine.cpp.o: \
  /usr/local/include/mavsdk/plugins/offboard/offboard.h \
  /usr/local/include/mavsdk/plugins/telemetry/telemetry.h \
  /home/senen/px4/include/pid.hpp \
+ /home/senen/px4/include/flight_procedure.hpp \
  /home/senen/px4/include/telemetry_monitor.hpp /usr/include/fcntl.h \
  /usr/include/x86_64-linux-gnu/bits/fcntl.h \
  /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h \

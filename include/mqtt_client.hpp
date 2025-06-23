@@ -24,7 +24,7 @@ const std::string PASSWORD = "senen!QAZxsw2";      // MQTT密码
 const std::string TOPIC = "transferfiles/#";       // 订阅的主题（接收所有文件传输相关消息）
 const std::string REPLAY_TOPIC = "px4_replay";     // 回复主题
 const std::string ACK_TOPIC = "transferfiles/ack"; // 确认消息发送主题
-const std::string CLIENT_ID = "px4-receiver";      // MQTT客户端ID
+const std::string CLIENT_ID = "px4_receiver";      // MQTT客户端ID
 const int KEEP_ALIVE = 60;                         // 心跳间隔（秒）
 
 /**

@@ -13,7 +13,7 @@ using namespace mavsdk;
 // 返回值：成功返回0，失败返回相应错误码
 // 错误码：-1 - 系统未就绪，1 - 设置起飞高度失败
 //         2 - 解锁失败，3 - 起飞命令发送失败
-int arming_and_takeoff(Mavsdk_members &mavsdk, float takeoff_altitude_m, float timeout_sec)
+int arming_and_takeoff(Mavsdk_members &mavsdk, float takeoff_altitude_m)
 {
     Action &action = mavsdk.action;
 
@@ -47,7 +47,7 @@ int arming_and_takeoff(Mavsdk_members &mavsdk, float takeoff_altitude_m, float t
 }
 
 // 降落函数
-int land_and_disarm(Mavsdk_members &mavsdk, float timeout_sec)
+int land_and_disarm(Mavsdk_members &mavsdk)
 {
     Action &action = mavsdk.action;
 
@@ -90,14 +90,12 @@ bool offboard_flight_position(Mavsdk_members &mavsdk, float north_m, float east_
     position_ned.down_m = down_m;
     position_ned.yaw_deg = yaw_deg;
 
-    // 初始化Offboard模式（发送空指令）
-    std::cout << "初始化Offboard模式...\n";
-    offboard.set_position_ned({});
+    // 初始化Offboard模式
+    offboard.set_position_ned(position_ned);
 
     try
     {
         // 启动Offboard模式
-        std::cout << "启动Offboard模式...\n";
         const Offboard::Result offboard_start_result = offboard.start();
         if (offboard_start_result != Offboard::Result::Success)
         {
@@ -105,14 +103,46 @@ bool offboard_flight_position(Mavsdk_members &mavsdk, float north_m, float east_
             return false;
         }
 
-        // 发送目标位置指令（持续5秒或直到中断）
-        const auto start_time = std::chrono::steady_clock::now();
-        std::cout << "发送目标位置指令...\n";
-        while (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - start_time).count() < 5)
+        offboard.set_position_ned(position_ned); // 设置目标位置
+
+        return true;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "offboard异常: " << e.what() << "\n";
+        return false;
+    }
+}
+
+// 处理Offboard模式下的机体速度控制
+// 功能：在Offboard模式下控制无人机的机体速度
+// 参数：forward_m_s - 前向速度（米/秒），right_m_s - 右向速度（米/秒），down_m_s - 向下速度（米/秒），yaw_rate_deg_s - 偏航角速度（度/秒）
+// 返回值：成功返回true，失败返回false
+bool offboard_flight_body_velocity(Mavsdk_members &mavsdk, float forward_m_s, float right_m_s, float down_m_s, float yaw_rate_deg_s)
+{
+    Offboard &offboard = mavsdk.offboard;
+
+    // 创建机体速度指令
+    Offboard::VelocityBodyYawspeed velocity_body = {};
+    velocity_body.forward_m_s = forward_m_s;       // 前向速度（机体坐标系X轴）
+    velocity_body.right_m_s = right_m_s;           // 右向速度（机体坐标系Y轴）
+    velocity_body.down_m_s = down_m_s;             // 向下速度（机体坐标系Z轴）
+    velocity_body.yawspeed_deg_s = yaw_rate_deg_s; // 偏航角速度
+
+    // 初始化Offboard模式
+    offboard.set_velocity_body(velocity_body);
+
+    try
+    {
+        // 启动Offboard模式
+        const Offboard::Result offboard_start_result = offboard.start();
+        if (offboard_start_result != Offboard::Result::Success)
         {
-            offboard.set_position_ned(position_ned);                     // 设置目标位置
-            std::this_thread::sleep_for(std::chrono::milliseconds(200)); // 5Hz更新频率
+            std::cerr << "offboard模式 启动失败: " << offboard_start_result << "\n";
+            return false;
         }
+
+        offboard.set_velocity_body(velocity_body); // 设置目标速度
 
         return true;
     }

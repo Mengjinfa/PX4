@@ -69,24 +69,38 @@ include CMakeFiles/px4.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/px4.dir/flags.make
 
-CMakeFiles/px4.dir/src/async_mqtt.cpp.o: CMakeFiles/px4.dir/flags.make
-CMakeFiles/px4.dir/src/async_mqtt.cpp.o: /home/senen/px4/src/async_mqtt.cpp
-CMakeFiles/px4.dir/src/async_mqtt.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/px4.dir/src/async_mqtt.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/async_mqtt.cpp.o -MF CMakeFiles/px4.dir/src/async_mqtt.cpp.o.d -o CMakeFiles/px4.dir/src/async_mqtt.cpp.o -c /home/senen/px4/src/async_mqtt.cpp
+CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o: CMakeFiles/px4.dir/flags.make
+CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o: /home/senen/px4/src/apriltag_tracker.cpp
+CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o -MF CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o.d -o CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o -c /home/senen/px4/src/apriltag_tracker.cpp
 
-CMakeFiles/px4.dir/src/async_mqtt.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/px4.dir/src/async_mqtt.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/senen/px4/src/async_mqtt.cpp > CMakeFiles/px4.dir/src/async_mqtt.cpp.i
+CMakeFiles/px4.dir/src/apriltag_tracker.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/px4.dir/src/apriltag_tracker.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/senen/px4/src/apriltag_tracker.cpp > CMakeFiles/px4.dir/src/apriltag_tracker.cpp.i
 
-CMakeFiles/px4.dir/src/async_mqtt.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/px4.dir/src/async_mqtt.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/senen/px4/src/async_mqtt.cpp -o CMakeFiles/px4.dir/src/async_mqtt.cpp.s
+CMakeFiles/px4.dir/src/apriltag_tracker.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/px4.dir/src/apriltag_tracker.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/senen/px4/src/apriltag_tracker.cpp -o CMakeFiles/px4.dir/src/apriltag_tracker.cpp.s
+
+CMakeFiles/px4.dir/src/mavsdk_members.cpp.o: CMakeFiles/px4.dir/flags.make
+CMakeFiles/px4.dir/src/mavsdk_members.cpp.o: /home/senen/px4/src/mavsdk_members.cpp
+CMakeFiles/px4.dir/src/mavsdk_members.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/px4.dir/src/mavsdk_members.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/mavsdk_members.cpp.o -MF CMakeFiles/px4.dir/src/mavsdk_members.cpp.o.d -o CMakeFiles/px4.dir/src/mavsdk_members.cpp.o -c /home/senen/px4/src/mavsdk_members.cpp
+
+CMakeFiles/px4.dir/src/mavsdk_members.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/px4.dir/src/mavsdk_members.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/senen/px4/src/mavsdk_members.cpp > CMakeFiles/px4.dir/src/mavsdk_members.cpp.i
+
+CMakeFiles/px4.dir/src/mavsdk_members.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/px4.dir/src/mavsdk_members.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/senen/px4/src/mavsdk_members.cpp -o CMakeFiles/px4.dir/src/mavsdk_members.cpp.s
 
 CMakeFiles/px4.dir/src/sim_camera_module.cpp.o: CMakeFiles/px4.dir/flags.make
 CMakeFiles/px4.dir/src/sim_camera_module.cpp.o: /home/senen/px4/src/sim_camera_module.cpp
 CMakeFiles/px4.dir/src/sim_camera_module.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/px4.dir/src/sim_camera_module.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/px4.dir/src/sim_camera_module.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/sim_camera_module.cpp.o -MF CMakeFiles/px4.dir/src/sim_camera_module.cpp.o.d -o CMakeFiles/px4.dir/src/sim_camera_module.cpp.o -c /home/senen/px4/src/sim_camera_module.cpp
 
 CMakeFiles/px4.dir/src/sim_camera_module.cpp.i: cmake_force
@@ -100,7 +114,7 @@ CMakeFiles/px4.dir/src/sim_camera_module.cpp.s: cmake_force
 CMakeFiles/px4.dir/src/telemetry_monitor.cpp.o: CMakeFiles/px4.dir/flags.make
 CMakeFiles/px4.dir/src/telemetry_monitor.cpp.o: /home/senen/px4/src/telemetry_monitor.cpp
 CMakeFiles/px4.dir/src/telemetry_monitor.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/px4.dir/src/telemetry_monitor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/px4.dir/src/telemetry_monitor.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/telemetry_monitor.cpp.o -MF CMakeFiles/px4.dir/src/telemetry_monitor.cpp.o.d -o CMakeFiles/px4.dir/src/telemetry_monitor.cpp.o -c /home/senen/px4/src/telemetry_monitor.cpp
 
 CMakeFiles/px4.dir/src/telemetry_monitor.cpp.i: cmake_force
@@ -111,38 +125,10 @@ CMakeFiles/px4.dir/src/telemetry_monitor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/px4.dir/src/telemetry_monitor.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/senen/px4/src/telemetry_monitor.cpp -o CMakeFiles/px4.dir/src/telemetry_monitor.cpp.s
 
-CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o: CMakeFiles/px4.dir/flags.make
-CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o: /home/senen/px4/src/apriltag_tracker.cpp
-CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o -MF CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o.d -o CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o -c /home/senen/px4/src/apriltag_tracker.cpp
-
-CMakeFiles/px4.dir/src/apriltag_tracker.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/px4.dir/src/apriltag_tracker.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/senen/px4/src/apriltag_tracker.cpp > CMakeFiles/px4.dir/src/apriltag_tracker.cpp.i
-
-CMakeFiles/px4.dir/src/apriltag_tracker.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/px4.dir/src/apriltag_tracker.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/senen/px4/src/apriltag_tracker.cpp -o CMakeFiles/px4.dir/src/apriltag_tracker.cpp.s
-
-CMakeFiles/px4.dir/src/detection_state_machine.cpp.o: CMakeFiles/px4.dir/flags.make
-CMakeFiles/px4.dir/src/detection_state_machine.cpp.o: /home/senen/px4/src/detection_state_machine.cpp
-CMakeFiles/px4.dir/src/detection_state_machine.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/px4.dir/src/detection_state_machine.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/detection_state_machine.cpp.o -MF CMakeFiles/px4.dir/src/detection_state_machine.cpp.o.d -o CMakeFiles/px4.dir/src/detection_state_machine.cpp.o -c /home/senen/px4/src/detection_state_machine.cpp
-
-CMakeFiles/px4.dir/src/detection_state_machine.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/px4.dir/src/detection_state_machine.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/senen/px4/src/detection_state_machine.cpp > CMakeFiles/px4.dir/src/detection_state_machine.cpp.i
-
-CMakeFiles/px4.dir/src/detection_state_machine.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/px4.dir/src/detection_state_machine.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/senen/px4/src/detection_state_machine.cpp -o CMakeFiles/px4.dir/src/detection_state_machine.cpp.s
-
 CMakeFiles/px4.dir/src/logger.cpp.o: CMakeFiles/px4.dir/flags.make
 CMakeFiles/px4.dir/src/logger.cpp.o: /home/senen/px4/src/logger.cpp
 CMakeFiles/px4.dir/src/logger.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/px4.dir/src/logger.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/px4.dir/src/logger.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/logger.cpp.o -MF CMakeFiles/px4.dir/src/logger.cpp.o.d -o CMakeFiles/px4.dir/src/logger.cpp.o -c /home/senen/px4/src/logger.cpp
 
 CMakeFiles/px4.dir/src/logger.cpp.i: cmake_force
@@ -156,7 +142,7 @@ CMakeFiles/px4.dir/src/logger.cpp.s: cmake_force
 CMakeFiles/px4.dir/src/BeiDouModule.cpp.o: CMakeFiles/px4.dir/flags.make
 CMakeFiles/px4.dir/src/BeiDouModule.cpp.o: /home/senen/px4/src/BeiDouModule.cpp
 CMakeFiles/px4.dir/src/BeiDouModule.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/px4.dir/src/BeiDouModule.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/px4.dir/src/BeiDouModule.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/BeiDouModule.cpp.o -MF CMakeFiles/px4.dir/src/BeiDouModule.cpp.o.d -o CMakeFiles/px4.dir/src/BeiDouModule.cpp.o -c /home/senen/px4/src/BeiDouModule.cpp
 
 CMakeFiles/px4.dir/src/BeiDouModule.cpp.i: cmake_force
@@ -170,7 +156,7 @@ CMakeFiles/px4.dir/src/BeiDouModule.cpp.s: cmake_force
 CMakeFiles/px4.dir/src/mqtt_client.cpp.o: CMakeFiles/px4.dir/flags.make
 CMakeFiles/px4.dir/src/mqtt_client.cpp.o: /home/senen/px4/src/mqtt_client.cpp
 CMakeFiles/px4.dir/src/mqtt_client.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/px4.dir/src/mqtt_client.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/px4.dir/src/mqtt_client.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/mqtt_client.cpp.o -MF CMakeFiles/px4.dir/src/mqtt_client.cpp.o.d -o CMakeFiles/px4.dir/src/mqtt_client.cpp.o -c /home/senen/px4/src/mqtt_client.cpp
 
 CMakeFiles/px4.dir/src/mqtt_client.cpp.i: cmake_force
@@ -184,7 +170,7 @@ CMakeFiles/px4.dir/src/mqtt_client.cpp.s: cmake_force
 CMakeFiles/px4.dir/src/flight_procedure.cpp.o: CMakeFiles/px4.dir/flags.make
 CMakeFiles/px4.dir/src/flight_procedure.cpp.o: /home/senen/px4/src/flight_procedure.cpp
 CMakeFiles/px4.dir/src/flight_procedure.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/px4.dir/src/flight_procedure.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/px4.dir/src/flight_procedure.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/flight_procedure.cpp.o -MF CMakeFiles/px4.dir/src/flight_procedure.cpp.o.d -o CMakeFiles/px4.dir/src/flight_procedure.cpp.o -c /home/senen/px4/src/flight_procedure.cpp
 
 CMakeFiles/px4.dir/src/flight_procedure.cpp.i: cmake_force
@@ -198,7 +184,7 @@ CMakeFiles/px4.dir/src/flight_procedure.cpp.s: cmake_force
 CMakeFiles/px4.dir/src/pid.cpp.o: CMakeFiles/px4.dir/flags.make
 CMakeFiles/px4.dir/src/pid.cpp.o: /home/senen/px4/src/pid.cpp
 CMakeFiles/px4.dir/src/pid.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/px4.dir/src/pid.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/px4.dir/src/pid.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/pid.cpp.o -MF CMakeFiles/px4.dir/src/pid.cpp.o.d -o CMakeFiles/px4.dir/src/pid.cpp.o -c /home/senen/px4/src/pid.cpp
 
 CMakeFiles/px4.dir/src/pid.cpp.i: cmake_force
@@ -212,7 +198,7 @@ CMakeFiles/px4.dir/src/pid.cpp.s: cmake_force
 CMakeFiles/px4.dir/src/state_machine.cpp.o: CMakeFiles/px4.dir/flags.make
 CMakeFiles/px4.dir/src/state_machine.cpp.o: /home/senen/px4/src/state_machine.cpp
 CMakeFiles/px4.dir/src/state_machine.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/px4.dir/src/state_machine.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/px4.dir/src/state_machine.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/state_machine.cpp.o -MF CMakeFiles/px4.dir/src/state_machine.cpp.o.d -o CMakeFiles/px4.dir/src/state_machine.cpp.o -c /home/senen/px4/src/state_machine.cpp
 
 CMakeFiles/px4.dir/src/state_machine.cpp.i: cmake_force
@@ -226,7 +212,7 @@ CMakeFiles/px4.dir/src/state_machine.cpp.s: cmake_force
 CMakeFiles/px4.dir/src/main.cpp.o: CMakeFiles/px4.dir/flags.make
 CMakeFiles/px4.dir/src/main.cpp.o: /home/senen/px4/src/main.cpp
 CMakeFiles/px4.dir/src/main.cpp.o: CMakeFiles/px4.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/px4.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/px4.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/px4.dir/src/main.cpp.o -MF CMakeFiles/px4.dir/src/main.cpp.o.d -o CMakeFiles/px4.dir/src/main.cpp.o -c /home/senen/px4/src/main.cpp
 
 CMakeFiles/px4.dir/src/main.cpp.i: cmake_force
@@ -239,11 +225,10 @@ CMakeFiles/px4.dir/src/main.cpp.s: cmake_force
 
 # Object files for target px4
 px4_OBJECTS = \
-"CMakeFiles/px4.dir/src/async_mqtt.cpp.o" \
+"CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o" \
+"CMakeFiles/px4.dir/src/mavsdk_members.cpp.o" \
 "CMakeFiles/px4.dir/src/sim_camera_module.cpp.o" \
 "CMakeFiles/px4.dir/src/telemetry_monitor.cpp.o" \
-"CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o" \
-"CMakeFiles/px4.dir/src/detection_state_machine.cpp.o" \
 "CMakeFiles/px4.dir/src/logger.cpp.o" \
 "CMakeFiles/px4.dir/src/BeiDouModule.cpp.o" \
 "CMakeFiles/px4.dir/src/mqtt_client.cpp.o" \
@@ -255,11 +240,10 @@ px4_OBJECTS = \
 # External object files for target px4
 px4_EXTERNAL_OBJECTS =
 
-px4: CMakeFiles/px4.dir/src/async_mqtt.cpp.o
+px4: CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o
+px4: CMakeFiles/px4.dir/src/mavsdk_members.cpp.o
 px4: CMakeFiles/px4.dir/src/sim_camera_module.cpp.o
 px4: CMakeFiles/px4.dir/src/telemetry_monitor.cpp.o
-px4: CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o
-px4: CMakeFiles/px4.dir/src/detection_state_machine.cpp.o
 px4: CMakeFiles/px4.dir/src/logger.cpp.o
 px4: CMakeFiles/px4.dir/src/BeiDouModule.cpp.o
 px4: CMakeFiles/px4.dir/src/mqtt_client.cpp.o
@@ -345,7 +329,7 @@ px4: /usr/lib/x86_64-linux-gnu/libignition-common3.so.3.17.1
 px4: /usr/lib/x86_64-linux-gnu/libuuid.so
 px4: /usr/lib/x86_64-linux-gnu/libuuid.so
 px4: CMakeFiles/px4.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable px4"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable px4"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/px4.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

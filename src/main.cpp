@@ -1,8 +1,9 @@
-#include "async_mqtt.hpp"
 #include "flight_procedure.hpp"
+#include "mavsdk_members.hpp"
 #include "mqtt_client.hpp"
 #include "pid.hpp"
 #include "state_machine.hpp"
+#include "telemetry_monitor.hpp"
 
 #include <chrono>
 #include <fcntl.h>
@@ -18,42 +19,6 @@
 namespace fs = std::filesystem;
 using namespace std;
 using namespace mavsdk;
-
-// 辅助函数：将飞行模式枚举转换为字符串
-std::string telemetry_flight_mode_str(Telemetry::FlightMode mode)
-{
-    switch (mode)
-    {
-        case Telemetry::FlightMode::Unknown:
-            return "Unknown";
-        case Telemetry::FlightMode::Ready:
-            return "Ready";
-        case Telemetry::FlightMode::Takeoff:
-            return "Takeoff";
-        case Telemetry::FlightMode::Hold:
-            return "Hold";
-        case Telemetry::FlightMode::Mission:
-            return "Mission";
-        case Telemetry::FlightMode::ReturnToLaunch:
-            return "ReturnToLaunch";
-        case Telemetry::FlightMode::Land:
-            return "Land";
-        case Telemetry::FlightMode::Offboard:
-            return "Offboard";
-        case Telemetry::FlightMode::FollowMe:
-            return "FollowMe";
-        case Telemetry::FlightMode::Posctl:
-            return "Position";
-        case Telemetry::FlightMode::Altctl:
-            return "Altitude";
-        case Telemetry::FlightMode::Stabilized:
-            return "Stabilized";
-        case Telemetry::FlightMode::Acro:
-            return "Acro";
-        default:
-            return "Invalid";
-    }
-}
 
 int main(int argc, char *argv[])
 {
@@ -142,41 +107,54 @@ int main(int argc, char *argv[])
     };
 
     /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-    AprilTagTracker tag_tracker;             // AprilTag跟踪器
-    StateMachine state_machine;              // 状态机
-    PID pid;                                 // PID控制器
-    Telemetry &telemetry = mavsdk.telemetry; // 获取遥测数据模块引用
-    Telemetry::FlightMode flight_mode;       // 飞行模式
+    AprilTagTracker tag_tracker;                   // AprilTag跟踪器
+    StateMachine state_machine;                    // 状态机
+    PID pid;                                       // PID控制器
+    Telemetry &telemetry = mavsdk.telemetry;       // 获取遥测数据模块引用
+    TelemetryMonitor telemetry_monitor(telemetry); // 创建遥测监控器实例
 
     // 启动AprilTag跟踪器
     tag_tracker.start(argc, argv);
+
+    // 起飞并解锁无人机，起飞高度为3米
+    arming_and_takeoff(mavsdk, 3.0);
 
     /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     while (running)
     {
-        AprilTagData landmark = tag_tracker.getData();         // 获取最新AprilTag检测结果
-        PIDOutput PID_out = pid.Output_PID();                  // 更新PID结果
-        LandingState state_ = state_machine.getCurrentState(); // 输出状态机处于的模式
+        AprilTagData landmark = tag_tracker.getData();                // 获取最新AprilTag检测结果
+        PIDOutput PID_out = pid.Output_PID();                         // 更新PID结果
+        LandingState state_ = state_machine.getCurrentStateMachine(); // 输出状态机处于的模式
+
+        Telemetry::PositionNed current_position = telemetry_monitor.getCurrentPosition();    // 获取当前无人机位置(NED坐标系)
+        Telemetry::FlightMode flight_mode = telemetry_monitor.getCurrentFlightMode();        // 获取当前飞行模式
+        Telemetry::RawGps gps_raw = telemetry_monitor.getCurrentRawGps();                    // 获取当前GPS信息
+        Telemetry::EulerAngle euler_angle = telemetry_monitor.getCurrentEulerAngles();       // 获取当前欧拉角姿态
+        float current_distance_sensor_m = telemetry_monitor.getCurrentDistanceSensorM();     // 获取当前距离传感器高度
+        float current_relative_altitude_m = telemetry_monitor.getCurrentRelativeAltitudeM(); // 获取当前相对高度
 
         pid.getLandmark(landmark); // 获取地标检测数据
+        pid.PID_update();          // 更新PID控制器状态
 
-        state_machine.StartStateMachine(mavsdk); // 启动状态机
-        state_machine.getLandmark(landmark);     // 获取地标检测数据
-        state_machine.getPIDOut(PID_out);        // 获取PID计算结果
-
-        // 注册飞行模式回调函数
-        telemetry.subscribe_flight_mode([](Telemetry::FlightMode flight_mode)
-                                        { std::cout << "当前飞行模式: " << telemetry_flight_mode_str(flight_mode) << std::endl; });
+        state_machine.StartStateMachine(current_position, current_relative_altitude_m); // 启动状态机
+        state_machine.getLandmark(landmark);                                            // 获取地标检测数据
+        state_machine.getPIDOut(PID_out);                                               // 获取PID计算结果
+        state_machine.updateState(mavsdk);                                              // 更新状态机状态
 
         /*:::::::::::::::::::::::::::::::::::::::::::::::: 日志（每秒一次） ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-        static auto lastWriteTime = std::chrono::steady_clock::now(); // 上次写入时间
+        static auto lastWriteTime = std::chrono::steady_clock::now();
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - lastWriteTime).count() >= 1)
         {
             // 发送的消息 - 字符串
-            std::string logMessage = "Mode: " + telemetry_flight_mode_str(flight_mode) + ", state : " + state_machine.landingStateToString(state_) + "\n ";
+            std::string logMessage = "Mode: " + telemetry_monitor.flight_mode_str(flight_mode) + ", state : " + state_machine.landingStateToString(state_) + "\n";
             logMessage += "Landmark:(x: " + std::to_string(landmark.x) + ", y: " + std::to_string(landmark.y) + ")" + "\n";
             logMessage += "err:(x: " + std::to_string(landmark.err_x) + ", y: " + std::to_string(landmark.err_y) + ")" + "\n";
+            logMessage += "PID:(x: " + std::to_string(PID_out.x) + ", y: " + std::to_string(PID_out.y) + ")" + "\n";
+            logMessage += "Euler:(yaw: " + std::to_string(euler_angle.yaw_deg) + ", pitch: " + std::to_string(euler_angle.pitch_deg) + ", roll: " + std::to_string(euler_angle.roll_deg) + ")" + "\n";
+            logMessage += "Position:(x: " + std::to_string(current_position.north_m) + ", y: " + std::to_string(current_position.east_m) + ", z: " + std::to_string(-current_position.down_m) + ")" + "\n";
+            logMessage += "GPS:(x: " + std::to_string(gps_raw.latitude_deg) + ", y: " + std::to_string(gps_raw.longitude_deg) + ")" + "\n";
+            logMessage += "distance: " + std::to_string(current_distance_sensor_m) + "\n";
 
             mqtt.sendMessage(REPLAY_TOPIC, logMessage); // 发送MQTT消息 发送到flight_tx主题
 
