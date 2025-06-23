@@ -1,4 +1,4 @@
-#include "BeiDouModule.h"
+#include "BeiDouModule.hpp"
 
 CBeidouModule::CBeidouModule()
 {

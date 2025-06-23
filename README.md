@@ -175,7 +175,7 @@ gazebo配置：
 ​    	follow_mode="--gui-client-plugin libgazebo_user_camera_plugin.so"
 ​	fi	
 
-打开
+打开PX4-Autopilot/Tools/sitl_gazebo/models/iris/iris.sdf.jinja
 
 ​	找到第53行 <velocity_decay/>在之后添加
 
@@ -196,5 +196,9 @@ gazebo配置：
 	  <plugin name="camera_controller" filename="libgazebo_camera.so"/>
 	  <visualize>true</visualize>
 	</sensor>
+
+cd PX4-Autopilot
+
+make px4_sitl gazebo就可以看到有摄像头了
 
 这样就配置了仿真环境的摄像头了 。

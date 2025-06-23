@@ -54,16 +54,16 @@ RM = /usr/local/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/senen/PX4
+CMAKE_SOURCE_DIR = /home/senen/px4
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/senen/PX4/build
+CMAKE_BINARY_DIR = /home/senen/px4/build
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/PX4.dir/all
+all: CMakeFiles/px4.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/PX4.dir/clean
+clean: CMakeFiles/px4.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/PX4.dir
+# Target rules for target CMakeFiles/px4.dir
 
 # All Build rule for target.
-CMakeFiles/PX4.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/senen/PX4/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 "Built target PX4"
-.PHONY : CMakeFiles/PX4.dir/all
+CMakeFiles/px4.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/senen/px4/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13 "Built target px4"
+.PHONY : CMakeFiles/px4.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/PX4.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/senen/PX4/build/CMakeFiles 15
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PX4.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/senen/PX4/build/CMakeFiles 0
-.PHONY : CMakeFiles/PX4.dir/rule
+CMakeFiles/px4.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/senen/px4/build/CMakeFiles 13
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/px4.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/senen/px4/build/CMakeFiles 0
+.PHONY : CMakeFiles/px4.dir/rule
 
 # Convenience name for target.
-PX4: CMakeFiles/PX4.dir/rule
-.PHONY : PX4
+px4: CMakeFiles/px4.dir/rule
+.PHONY : px4
 
 # clean rule for target.
-CMakeFiles/PX4.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PX4.dir/build.make CMakeFiles/PX4.dir/clean
-.PHONY : CMakeFiles/PX4.dir/clean
+CMakeFiles/px4.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/clean
+.PHONY : CMakeFiles/px4.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

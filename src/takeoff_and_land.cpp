@@ -1,179 +1,124 @@
 #include "takeoff_and_land.hpp"
+#include "target_tracker.hpp"
+#include "telemetry_monitor.hpp"
+#include <cmath> // 用于计算距离
 #include <cstdint>
-// #include <mavsdk/mavsdk.h>
-// #include <mavsdk/plugins/action/action.h>
-// #include <mavsdk/plugins/telemetry/telemetry.h>
-#include <iostream>
 #include <future>
+#include <iostream>
 #include <memory>
 
 using namespace mavsdk;
 using std::chrono::seconds;
 using std::this_thread::sleep_for;
-// int takeoff_and_land(int enable,Action& action,Telemetry& telemetry)
-// {
-//     std::cerr << "8888888888888888888888888" << std::endl;
-//     // Telemetry{system.value()};
-//     // auto telemetry = Telemetry{mavlink_manager.get_system()};
-//     // auto action = Action{mavlink_manager.get_system()};
-//     // auto telemetry = mavlink_manager.get_telemetry();
-//     // auto action = mavlink_manager.get_action();
-//     // We want to listen to the altitude of the drone at 1 Hz.
-//     const auto set_rate_result = telemetry.set_rate_position(1.0);
-//     if (set_rate_result != Telemetry::Result::Success) {
-//         std::cerr << "Setting rate failed: " << set_rate_result << '\n';
-//         return 1;
-//     }
-
-//     // Set up callback to monitor altitude while the vehicle is in flight
-//     telemetry.subscribe_position([](Telemetry::Position position) {
-//         std::cout << "Altitude: " << position.relative_altitude_m << " m\n";
-//     });
-
-//     // Arm vehicle
-//     std::cout << "Arming...\n";
-//     const Action::Result arm_result = action.arm();
-
-//     if (arm_result != Action::Result::Success) {
-//         std::cerr << "Arming failed: " << arm_result << '\n';
-//         return 1;
-//     }
-
-//     // Take off
-//     std::cout << "Taking off...\n";
-//     const Action::Result takeoff_result = action.takeoff();
-//     if (takeoff_result != Action::Result::Success) {
-//         std::cerr << "Takeoff failed: " << takeoff_result << '\n';
-//         return 1;
-//     }
-
-//     // Let it hover for a bit before landing again.
-//     sleep_for(seconds(10));
-
-//     std::cout << "Landing...\n";
-//     const Action::Result land_result = action.land();
-//     if (land_result != Action::Result::Success) {
-//         std::cerr << "Land failed: " << land_result << '\n';
-//         return 1;
-//     }
-
-//     // Check if vehicle is still in air
-//     while (telemetry.in_air()) {
-//         std::cout << "Vehicle is landing...\n";
-//         sleep_for(seconds(1));
-//     }
-//     std::cout << "Landed!\n";
-
-//     // We are relying on auto-disarming but let's keep watching the telemetry for a bit longer.
-//     sleep_for(seconds(3));
-//     std::cout << "Finished...\n";
-
-//     return 0;
-// }
-const Offboard::PositionNedYaw position_ned{
-    .north_m = 0,
-    .east_m = 0,
-    .down_m = -1.5,  // 注意正值表示向下
-    .yaw_deg = 0
-};
-
 static std::atomic<int> current_enable(1);
 
-int takeoff_and_land(int enable, Action& action, Telemetry& telemetry, Offboard& offboard) {
- 
+// 在 NED（北东下）坐标系中输入位置指令，并输入偏航角
+const Offboard::PositionNedYaw position_NED = {
+    1.0f,  // north_m
+    1.0f,  // east_m
+    -5.0f, // down_m (注意正值表示向下)
+    90.0f  // yaw_deg (90度偏航角，正东方向)
+};
+
+// 处理起飞和降落操作
+int takeoff_and_land(int enable, Mavsdk_members &mavsdk)
+{
+    // 获取无人机控制相关组件
+    Telemetry &telemetry = mavsdk.telemetry;
+    Offboard &offboard = mavsdk.offboard;
+    Action &action = mavsdk.action;
+
     // 使用原子变量保证线程安全
     current_enable.store(enable);
-    if (current_enable == 0) { // 起飞并维持5米高度
-        // 设置高度订阅
-        const auto set_rate_result = telemetry.set_rate_position(1.0);
-        if (set_rate_result != Telemetry::Result::Success) {
-            std::cerr << "Setting rate failed: " << set_rate_result << '\n';
+
+    // 起飞 + 悬停
+    if (current_enable == 0)
+    {
+        // 设置位置数据更新频率：控制无人机发送位置信息（如经纬度、高度）的频率，单位为赫兹 (Hz)。
+        const auto set_rate_result = telemetry.set_rate_position(5.0);
+        if (set_rate_result != Telemetry::Result::Success)
+        {
+            std::cerr << "设置位置数据更新频率失败: " << set_rate_result << '\n';
             return 1;
         }
- 
-        // 订阅高度数据
-        telemetry.subscribe_position([](Telemetry::Position position) {
-            std::cout << "Current Altitude: " << position.relative_altitude_m << " m\n";
-        });
- 
+
         // 解锁
-        std::cout << "Arming...\n";
+        std::cout << "解锁...\n";
         const Action::Result arm_result = action.arm();
-        if (arm_result != Action::Result::Success) {
-            std::cerr << "Arming failed: " << arm_result << '\n';
-            return 1;
+        if (arm_result != Action::Result::Success)
+        {
+            std::cerr << "解锁 失败: " << arm_result << '\n';
+            return 2;
         }
- 
+
+        // 设置起飞高度为10米（相对于起飞位置）
+        const float takeoff_altitude_m = 10.0f;
+        action.set_takeoff_altitude(takeoff_altitude_m);
+        std::cout << "设置起飞高度为: " << takeoff_altitude_m << " 米\n";
+
         // 起飞
-        std::cout << "Taking off...\n";
+        std::cout << "起飞...\n";
         const Action::Result takeoff_result = action.takeoff();
-        if (takeoff_result != Action::Result::Success) {
-            std::cerr << "Takeoff failed: " << takeoff_result << '\n';
-            return 1;
+        if (takeoff_result != Action::Result::Success)
+        {
+            std::cerr << "起飞失败: " << takeoff_result << '\n';
+            return 3;
         }
- 
+
+        // 等待起飞完成
+        sleep_for(seconds(15));
+
+        // 发布目标位置
+        offboard.set_position_ned(position_NED);
+
         // 进入Offboard模式
-        std::cout << "Entering Offboard mode...\n";
+        std::cout << "进入 offboard 模式...\n";
         const Offboard::Result offboard_start_result = offboard.start();
-        if (offboard_start_result != Offboard::Result::Success) {
-            std::cerr << "Failed to enter Offboard mode: " << offboard_start_result << '\n';
-            return 1;
+        if (offboard_start_result != Offboard::Result::Success)
+        {
+            std::cerr << "进入 offboard 模式 失败: " << offboard_start_result << '\n';
+            return 4;
         }
- 
-        // 设置目标高度（NED坐标系，z向下为正）
-        // auto target_position = PositionNedYaw{0, 0, -5.0, 0};
-        
-        // 维持高度循环（直到收到enable=1）
-        std::cout << "Maintaining 5m altitude...\n";
-        while (current_enable == 0) {  // 持续检查enable状态
-            offboard.set_position_ned(position_ned);
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));  // 缩短检查间隔
- 
-            // // 动态高度调整逻辑
-            // auto pos = telemetry.position();
-            // if (pos.relative_altitude_m > 5.5) {
-            //     position_ned.down_m = -5.0;  // 保持目标高度
-            // } else if (pos.relative_altitude_m < 4.5) {
-            //     position_ned.down_m = -5.0;  // 防止负高度
-            // }
-        }
- 
-        // 停止Offboard模式
-        offboard.stop();
- 
-        // 等待降落完成
-        while (telemetry.in_air()) {
-            std::cout << "Vehicle is landing...\n";
-            std::this_thread::sleep_for(seconds(1));
-        }
- 
-    } else if (current_enable == 1) { // 降落
+
+        // 发布目标位置
+        offboard.set_position_ned(position_NED);
+
+        // 启动目标检测线程
+        detectLandingPadAndSendCommand(mavsdk);
+    }
+    // 降落
+    else if (current_enable == 1)
+    {
         // 检查是否在飞行中
-        if (!telemetry.in_air()) {
-            std::cerr << "Vehicle is already on ground." << std::endl;
+        if (!telemetry.in_air())
+        {
+            std::cerr << "无人机已经停在地面了" << std::endl;
             return 0;
         }
- 
+
         // 降落
-        std::cout << "Landing...\n";
+        std::cout << "降落...\n";
         const Action::Result land_result = action.land();
-        if (land_result != Action::Result::Success) {
-            std::cerr << "Land failed: " << land_result << '\n';
+        if (land_result != Action::Result::Success)
+        {
+            std::cerr << "降落 失败: " << land_result << '\n';
             return 1;
         }
- 
+
         // 等待降落完成
-        while (telemetry.in_air()) {
-            std::cout << "Vehicle is landing...\n";
-            std::this_thread::sleep_for(seconds(1));
+        while (telemetry.in_air())
+        {
+            std::cout << "无人机正在降落...\n";
+            std::this_thread::sleep_for(std::chrono::seconds(1));
         }
         std::cout << "Landed!\n";
- 
-    } else {
-        std::cerr << "Invalid enable value: " << current_enable << std::endl;
+    }
+    else
+    {
+        std::cerr << "无效的启用值: " << current_enable << std::endl;
         return 1;
     }
- 
-    std::cout << "Operation completed.\n";
+
+    std::cout << "操作已完成\n";
     return 0;
 }

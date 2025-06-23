@@ -4,38 +4,41 @@
 #include <atomic>
 #include <chrono>
 
-// 假设 DroneState 是一个枚举类型
+// 定义无人机的状态枚举
 enum class DroneState
 {
-    TRACKING,
-    SEARCHING,
-    LANDING,
-    NOT_DETECTED
+    TRACKING,    // 跟踪状态
+    SEARCHING,   // 搜索状态
+    LANDING,     // 降落状态
+    NOT_DETECTED // 未检测到目标状态
 };
 
+// DetectionStateMachine 类定义
 class DetectionStateMachine
 {
 public:
-    DetectionStateMachine();
+    DetectionStateMachine(); // 默认构造函数
 
-    DroneState update(bool detected);
-    bool isLandingComplete() const;
+    DroneState update(bool detected); // 更新状态机的状态，根据是否检测到目标来决定下一步操作
 
-    void setCurrentRelativeAltitude(float altitude);
-    float getNotDetectedAltitude();
+    bool isLandingComplete() const;                  // 检查降落是否完成
+    void setCurrentRelativeAltitude(float altitude); // 设置当前相对高度（来自无人机遥测数据）
+    float getNotDetectedAltitude();                  // 获取未检测到目标时的保存高度（用于搜索模式）
 
 private:
-    DroneState state = DroneState::TRACKING;
-    std::chrono::steady_clock::time_point no_detection_start;
-    std::atomic<bool> landing_complete; // 降落完成标志
+    DroneState state = DroneState::TRACKING;                  // 当前状态，默认为 TRACKING
+    std::chrono::steady_clock::time_point no_detection_start; // 未检测到目标的开始时间点
+    std::atomic<bool> landing_complete;                       // 降落完成标志，使用原子类型确保线程安全
 
-    int detection_count = 0;                                                                            // 检测到目标的次数
-    int no_detection_count = 0;                                                                         // 连续未检测到目标的次数
-    std::chrono::time_point<std::chrono::steady_clock> search_start = std::chrono::steady_clock::now(); // 记录 SEARCHING 开始时间
-    const int timeout = 5;                                                                              // 超时时间（秒）
-    bool has_tracked_once = false;
-    float saved_altitude = 0.0f; // 保存高度值
-    float in_altitude = 0.0f;    // 外部传入高度值
+    // 搜索模式的开始时间点
+    std::chrono::time_point<std::chrono::steady_clock> search_start = std::chrono::steady_clock::now();
+
+    int detection_count = 0;       // 检测到目标的计数
+    int no_detection_count = 0;    // 未检测到目标的计数
+    const int timeout = 5;         // 超时时间（秒）
+    bool has_tracked_once = false; // 是否已经跟踪过一次目标
+    float saved_altitude = 0.0f;   // 未检测到目标时保存的高度
+    float in_altitude = 0.0f;      // 当前相对高度
 };
 
 #endif // DETECTIONSTATEMACHINE_H
