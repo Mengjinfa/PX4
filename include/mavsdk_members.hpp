@@ -13,14 +13,6 @@
 class Mavsdk_members
 {
 public:
-    Mavsdk_members(mavsdk::MavlinkPassthrough &mp,
-                   mavsdk::MissionRaw &mr,
-                   mavsdk::Telemetry &t,
-                   mavsdk::Offboard &o,
-                   mavsdk::Mission &m,
-                   mavsdk::Action &a,
-                   mavsdk::Camera &c);
-
     mavsdk::MavlinkPassthrough &mavlink_passthrough;
     mavsdk::MissionRaw &mission_raw;
     mavsdk::Telemetry &telemetry;
@@ -28,6 +20,11 @@ public:
     mavsdk::Mission &mission;
     mavsdk::Action &action;
     mavsdk::Camera &camera;
+
+    // 只声明构造函数，不在头文件中定义
+    Mavsdk_members(mavsdk::MavlinkPassthrough &mp, mavsdk::MissionRaw &mr,
+                   mavsdk::Telemetry &t, mavsdk::Offboard &o,
+                   mavsdk::Mission &m, mavsdk::Action &a, mavsdk::Camera &c);
 };
 
-#endif
+#endif // MAVSDK_MEMBERS_HPP

@@ -1,4 +1,5 @@
 #include "flight_procedure.hpp"
+
 #include <chrono>
 #include <cstdint>
 #include <future>
@@ -9,10 +10,6 @@ using namespace mavsdk;
 
 // 起飞和降落操作处理（带状态监测）
 // 功能：解锁无人机，起飞到指定高度，并监测起飞状态
-// 参数：context - 无人机上下文对象，takeoff_altitude_m - 起飞高度（米），timeout_sec - 超时时间（秒）
-// 返回值：成功返回0，失败返回相应错误码
-// 错误码：-1 - 系统未就绪，1 - 设置起飞高度失败
-//         2 - 解锁失败，3 - 起飞命令发送失败
 int arming_and_takeoff(Mavsdk_members &mavsdk, float takeoff_altitude_m)
 {
     Action &action = mavsdk.action;
@@ -44,6 +41,7 @@ int arming_and_takeoff(Mavsdk_members &mavsdk, float takeoff_altitude_m)
         std::cerr << "起飞命令发送失败: " << takeoff_result << "\n";
         return 3;
     }
+    return 0;
 }
 
 // 降落函数

@@ -184,34 +184,4 @@ CMakeFiles/px4.dir/src/telemetry_monitor.cpp.o: \
  /usr/include/c++/9/system_error \
  /usr/include/x86_64-linux-gnu/c++/9/bits/error_constants.h \
  /usr/include/c++/9/bits/std_mutex.h \
- /usr/include/c++/9/bits/unique_lock.h /usr/include/c++/9/thread \
- /home/senen/px4/include/logger.hpp /usr/include/spdlog/logger.h \
- /usr/include/spdlog/common.h /usr/include/spdlog/tweakme.h \
- /usr/include/spdlog/details/null_mutex.h /usr/include/spdlog/fmt/fmt.h \
- /usr/include/spdlog/fmt/bundled/core.h /usr/include/c++/9/cstring \
- /usr/include/string.h /usr/include/strings.h /usr/include/c++/9/iterator \
- /usr/include/c++/9/ostream /usr/include/c++/9/ios \
- /usr/include/c++/9/bits/ios_base.h \
- /usr/include/c++/9/bits/locale_classes.h \
- /usr/include/c++/9/bits/locale_classes.tcc /usr/include/c++/9/streambuf \
- /usr/include/c++/9/bits/streambuf.tcc \
- /usr/include/c++/9/bits/basic_ios.h \
- /usr/include/c++/9/bits/locale_facets.h /usr/include/c++/9/cwctype \
- /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
- /usr/include/x86_64-linux-gnu/c++/9/bits/ctype_base.h \
- /usr/include/c++/9/bits/streambuf_iterator.h \
- /usr/include/x86_64-linux-gnu/c++/9/bits/ctype_inline.h \
- /usr/include/c++/9/bits/locale_facets.tcc \
- /usr/include/c++/9/bits/basic_ios.tcc \
- /usr/include/c++/9/bits/ostream.tcc /usr/include/c++/9/istream \
- /usr/include/c++/9/bits/istream.tcc \
- /usr/include/c++/9/bits/stream_iterator.h \
- /usr/include/spdlog/fmt/bundled/format.h \
- /usr/include/spdlog/fmt/bundled/core.h /usr/include/c++/9/algorithm \
- /usr/include/c++/9/pstl/glue_algorithm_defs.h \
- /usr/include/spdlog/details/log_msg.h \
- /usr/include/spdlog/details/backtracer.h \
- /usr/include/spdlog/details/log_msg_buffer.h \
- /usr/include/spdlog/details/circular_q.h /usr/include/c++/9/cassert \
- /usr/include/assert.h /usr/include/spdlog/sinks/base_sink.h \
- /usr/include/spdlog/sinks/sink.h /usr/include/spdlog/formatter.h
+ /usr/include/c++/9/bits/unique_lock.h /usr/include/c++/9/thread

@@ -20,6 +20,9 @@ ASSIMP_INCLUDE_DIRS:PATH=/usr/include
 //Path to a library.
 ASSIMP_LIBRARIES:FILEPATH=/usr/lib/x86_64-linux-gnu/libassimp.so
 
+//Build the testing tree.
+BUILD_TESTING:BOOL=ON
+
 //The directory containing a CMake configuration file for Boost.
 Boost_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0
 
@@ -204,8 +207,21 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Path to the coverage program that CTest uses for performing coverage
+// inspection
+COVERAGE_COMMAND:FILEPATH=/usr/bin/gcov
+
+//Extra command line flags to pass to the coverage tool
+COVERAGE_EXTRA_FLAGS:STRING=-l
+
 //Path to a file.
 CPPZMQ_INCLUDE_DIRS:PATH=/usr/include
+
+//How many times to retry timed-out CTest submissions.
+CTEST_SUBMIT_RETRY_COUNT:STRING=3
+
+//How long to wait between timed-out CTest submissions.
+CTEST_SUBMIT_RETRY_DELAY:STRING=5
 
 //The directory containing a CMake configuration file for CURL.
 CURL_DIR:PATH=CURL_DIR-NOTFOUND
@@ -222,6 +238,9 @@ CURL_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libcurl.so
 //The directory containing a CMake configuration file for DART.
 DART_DIR:PATH=/usr/share/dart/cmake
 
+//Maximum time allowed before CTest will kill the test.
+DART_TESTING_TIMEOUT:STRING=1500
+
 //Path to a file.
 DL_INCLUDE_DIRS:PATH=/usr/include
 
@@ -237,6 +256,9 @@ FCL_INCLUDE_DIRS:PATH=/usr/include
 //Path to a library.
 FCL_LIBRARIES:FILEPATH=/usr/lib/x86_64-linux-gnu/libfcl.so
 
+//Path to a program.
+GITCOMMAND:FILEPATH=/usr/bin/git
+
 //Compile with a sanitizer. Options are: Address, Memory, MemoryWithOrigins,
 // Undefined, Thread, Leak, 'Address;Undefined', CFI
 GZ_SANITIZER:STRING=
@@ -248,8 +270,17 @@ IGN_SANITIZER:STRING=
 //Path to a library.
 JSONCPP_LIBRARY_jsoncpp:FILEPATH=/usr/lib/x86_64-linux-gnu/libjsoncpp.so
 
+//Command to build the project
+MAKECOMMAND:STRING=/usr/local/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
+
 //The directory containing a CMake configuration file for MAVSDK.
 MAVSDK_DIR:PATH=/usr/local/lib/cmake/MAVSDK
+
+//Path to the memory checking command, used for memory error detection.
+MEMORYCHECK_COMMAND:FILEPATH=MEMORYCHECK_COMMAND-NOTFOUND
+
+//File that contains suppressions for the memory checker
+MEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=
 
 //x
 OGRE_CONFIG_INCLUDE_DIR:STRING=/usr/include/OGRE/
@@ -533,6 +564,9 @@ Protobuf_PROTOC_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libprotoc.so
 //Path to a library.
 Protobuf_PROTOC_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libprotoc.so
 
+//Name of the computer/site where compile is being run
+SITE:STRING=ubuntu
+
 //The directory containing a CMake configuration file for Simbody.
 Simbody_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/simbody
 
@@ -774,6 +808,8 @@ CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 CMAKE_COMMAND:INTERNAL=/usr/local/bin/cmake
 //Path to cpack program executable.
 CMAKE_CPACK_COMMAND:INTERNAL=/usr/local/bin/cpack
+//ADVANCED property for variable: CMAKE_CTEST_COMMAND
+CMAKE_CTEST_COMMAND-ADVANCED:INTERNAL=1
 //Path to ctest program executable.
 CMAKE_CTEST_COMMAND:INTERNAL=/usr/local/bin/ctest
 //ADVANCED property for variable: CMAKE_CXX_COMPILER
@@ -893,8 +929,16 @@ CMAKE_TAPI-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: COVERAGE_COMMAND
+COVERAGE_COMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: COVERAGE_EXTRA_FLAGS
+COVERAGE_EXTRA_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CPPZMQ_INCLUDE_DIRS
 CPPZMQ_INCLUDE_DIRS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CTEST_SUBMIT_RETRY_COUNT
+CTEST_SUBMIT_RETRY_COUNT-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CTEST_SUBMIT_RETRY_DELAY
+CTEST_SUBMIT_RETRY_DELAY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CURL_DIR
 CURL_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CURL_INCLUDE_DIR
@@ -905,9 +949,11 @@ CURL_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 CURL_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 DART_DEFINITIONS:INTERNAL=
 DART_INCLUDE_DIRS:INTERNAL=/usr/include
-DART_LIBRARIES:INTERNAL=dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart
+DART_LIBRARIES:INTERNAL=dart
 //Boost min version requirement
 DART_MIN_BOOST_VERSION:INTERNAL=1.58.0
+//ADVANCED property for variable: DART_TESTING_TIMEOUT
+DART_TESTING_TIMEOUT-ADVANCED:INTERNAL=1
 DART_dart_DEFINITIONS:INTERNAL=
 DART_dart_DEPENDENCIES:INTERNAL=external-odelcpsolver
 DART_dart_FOUND:INTERNAL=TRUE
@@ -920,7 +966,7 @@ DL_LIBRARIES-ADVANCED:INTERNAL=1
 //Details about finding CURL
 FIND_PACKAGE_MESSAGE_DETAILS_CURL:INTERNAL=[/usr/lib/x86_64-linux-gnu/libcurl.so][/usr/include/x86_64-linux-gnu][c ][v7.68.0()]
 //Details about finding DART
-FIND_PACKAGE_MESSAGE_DETAILS_DART:INTERNAL=[/usr/include][dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart][cfound components: dart ][v(6.6)]
+FIND_PACKAGE_MESSAGE_DETAILS_DART:INTERNAL=[/usr/include][dart][cfound components: dart ][v(6.6)]
 //Details about finding DL
 FIND_PACKAGE_MESSAGE_DETAILS_DL:INTERNAL=[true][v()]
 //Details about finding JSONCPP
@@ -951,6 +997,8 @@ FIND_PACKAGE_MESSAGE_DETAILS_ccd:INTERNAL=[/usr/include][/usr/lib/x86_64-linux-g
 FIND_PACKAGE_MESSAGE_DETAILS_fcl:INTERNAL=[/usr/include][/usr/lib/x86_64-linux-gnu/libfcl.so][v0.5.0(0.3.2)]
 //Details about finding nlohmann_json
 FIND_PACKAGE_MESSAGE_DETAILS_nlohmann_json:INTERNAL=[/usr/lib/cmake/nlohmann_json/nlohmann_jsonConfig.cmake][v3.7.3()]
+//ADVANCED property for variable: GITCOMMAND
+GITCOMMAND-ADVANCED:INTERNAL=1
 JSONCPP_CFLAGS:INTERNAL=-I/usr/include/jsoncpp
 JSONCPP_CFLAGS_I:INTERNAL=
 JSONCPP_CFLAGS_OTHER:INTERNAL=
@@ -987,6 +1035,12 @@ JSONCPP_jsoncpp_INCLUDEDIR:INTERNAL=
 JSONCPP_jsoncpp_LIBDIR:INTERNAL=
 JSONCPP_jsoncpp_PREFIX:INTERNAL=
 JSONCPP_jsoncpp_VERSION:INTERNAL=
+//ADVANCED property for variable: MAKECOMMAND
+MAKECOMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MEMORYCHECK_COMMAND
+MEMORYCHECK_COMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MEMORYCHECK_SUPPRESSIONS_FILE
+MEMORYCHECK_SUPPRESSIONS_FILE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OGRE_CONFIG_INCLUDE_DIR
 OGRE_CONFIG_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OGRE_INCLUDE_DIR
@@ -1346,6 +1400,8 @@ Protobuf_PROTOC_EXECUTABLE-ADVANCED:INTERNAL=1
 Protobuf_PROTOC_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Protobuf_PROTOC_LIBRARY_RELEASE
 Protobuf_PROTOC_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: SITE
+SITE-ADVANCED:INTERNAL=1
 TINYXML2_CFLAGS:INTERNAL=-I/usr/include
 TINYXML2_CFLAGS_I:INTERNAL=
 TINYXML2_CFLAGS_OTHER:INTERNAL=

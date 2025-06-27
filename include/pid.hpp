@@ -20,7 +20,15 @@ struct PIDOutput
 // PID控制器类
 class PID
 {
+
 public:
+    PID(); // 默认构造函数
+
+    void getLandmark(const AprilTagData &data); // 获取地标数据
+    void PID_update();                          // 计算PID控制指令
+    PIDOutput Output_PID() const;               // 输出PID控制结果
+
+private:
     // PID参数结构
     struct PIDParameters
     {
@@ -32,42 +40,30 @@ public:
     // 误差状态结构
     struct ErrorState
     {
-        double err;           // 当前误差
         double current;       // 当前处理后误差
-        double last;          // 上一时刻误差
         double integral;      // 积分项
         double derivative;    // 微分项
         double filtered;      // 滤波后误差
         double last_filtered; // 上一时刻滤波后误差
     };
 
-    PID(); // 默认构造函数
-
-    void initialize();                                  // 初始化PID控制器
-    void getLandmark(const AprilTagData &data);         // 获取地标数据
-    void PID_update();                                  // 计算PID控制指令
-    void preprocess_Landmark();                         // 预处理地标数据
-    void First_Detection();                             // 处理首次检测到地标的情况
-    void apply_LowPass_Filter();                        // 应用低通滤波器
-    void calculate_PID(double dt);                      // 计算PID控制量
-    void setPIDParameters(const PIDParameters &params); // 设置PID参数
-
-    PIDOutput Output_PID() const; // 输出PID控制结果
-
-private:
     // 私有成员变量
-    PIDParameters pid_params_;       // PID控制参数
-    AprilTagData landmark_;          // 当前地标数据
-    AprilTagData last_landmark_;     // 上一帧地标数据
-    ErrorState error_x_;             // x方向误差状态
-    ErrorState error_y_;             // y方向误差状态
-    PIDOutput pid_output_;           // PID控制输出
-    double last_landmark_recordcnt_; // 上次记录地标的时间
-    bool is_first_detection_;        // 是否首次检测到地标
-    int current_step_;               // 渐进控制步数
+    PIDParameters pid_params_;   // PID控制参数
+    AprilTagData landmark_;      // 当前地标数据
+    AprilTagData last_landmark_; // 上一帧地标数据
+    ErrorState error_x_;         // x方向误差状态
+    ErrorState error_y_;         // y方向误差状态
+    PIDOutput pid_output_;       // PID控制输出
+    bool is_first_detection_;    // 是否首次检测到地标
+    int current_step_;           // 渐进控制步数
 
     // 获取当前时间(秒)
     double get_current_time() const;
+
+private:
+    void First_Detection();        // 处理首次检测到地标的情况
+    void apply_LowPass_Filter();   // 应用低通滤波器
+    void calculate_PID(double dt); // 计算PID控制量
 };
 
 #endif // PID_HPP

@@ -1,5 +1,5 @@
-#ifndef _SINGLETON_HPP_
-#define _SINGLETON_HPP_
+#ifndef SINGLETON_HPP
+#define SINGLETON_HPP
 
 /************************************************************************/
 /*            Meyers Singleton, 退出时释放资源                          */

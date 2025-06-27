@@ -1,0 +1,11 @@
+# ninja log v5
+2	3390	1750810813169025159	CMakeFiles/px4.dir/src/telemetry_monitor.cpp.o	da56c2749bd3c885
+11	11756	1750838550756368426	CMakeFiles/px4.dir/src/mqtt_client.cpp.o	a6889d69aa407668
+11756	14775	1750838553768308426	px4	664660bed0d4cf69
+1	3483	1750810813265030760	CMakeFiles/px4.dir/src/mavsdk_members.cpp.o	58d4d06fd8c8e2ab
+14	3965	1750838542972523558	CMakeFiles/px4.dir/src/flight_procedure.cpp.o	375c20cd2af4b98d
+1	34833	1750810844594919674	CMakeFiles/px4.dir/src/sim_camera_module.cpp.o	52272fa42753d107
+14	6144	1750838545148480180	CMakeFiles/px4.dir/src/pid.cpp.o	b88f3d45b7efef36
+15	10267	1750838549268398072	CMakeFiles/px4.dir/src/main.cpp.o	333aac9e76e7b0e2
+0	31804	1750810841570732296	CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o	4be86f71165c24af
+14	6411	1750838545416474838	CMakeFiles/px4.dir/src/landing_state_machine.cpp.o	5454f676449fef78

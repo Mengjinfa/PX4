@@ -2095,5 +2095,4 @@ CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o: \
  /usr/include/gazebo-11/gazebo/transport/PublicationTransport.hh \
  /usr/include/gazebo-11/gazebo/transport/Publication.hh \
  /usr/include/gazebo-11/gazebo/transport/Subscriber.hh \
- /usr/include/gazebo-11/gazebo/transport/TransportIface.hh \
- /usr/include/zlib.h /usr/include/zconf.h
+ /usr/include/gazebo-11/gazebo/transport/TransportIface.hh

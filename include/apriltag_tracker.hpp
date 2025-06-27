@@ -35,14 +35,6 @@ public:
 
     AprilTagData getData() const; // 获取最新检测结果
 
-    /**
-     * @brief 设置参数（可扩展接口）
-     */
-    void setDecimate(double decimate);
-    void setBlur(double blur);
-    void setThreads(int threads);
-    void setRefineEdges(bool refine);
-
 private:
     void processingLoop();                                          // 持续从仿真环境获取图像并检测AprilTag
     cv::Mat preprocessImage(const cv::Mat &frame) const;            // 对输入图像进行增强和降噪处理，提高AprilTag检测成功率

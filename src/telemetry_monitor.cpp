@@ -1,5 +1,4 @@
 #include "telemetry_monitor.hpp"
-#include "logger.hpp"
 #include <atomic>
 #include <chrono>
 #include <memory>
@@ -17,7 +16,7 @@ TelemetryMonitor::TelemetryMonitor(Telemetry &telemetry) : telemetry(telemetry)
     has_landed.store(false);
     running_.store(true);
 
-    current_distance_sensor_m = std::numeric_limits<float>::min(); // 初始化距离传感器高度为最大值
+    current_distance_sensor_m = std::numeric_limits<float>::min(); // 初始化距离传感器高度为最小值
     current_flight_mode_ = Telemetry::FlightMode::Unknown;         // 初始化飞行模式为未知
     current_position = Telemetry::PositionNed{};                   // 初始化当前位置为默认值
     current_gps_ = Telemetry::RawGps{};                            // 初始化GPS信息为默认值
