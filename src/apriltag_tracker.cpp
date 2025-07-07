@@ -140,7 +140,17 @@ AprilTagTracker::~AprilTagTracker()
 AprilTagData AprilTagTracker::detect(cv::Mat &frame, bool drawOverlay)
 {
     // 初始化返回结果（默认未检测到标签）
-    AprilTagData result = {false, 0, 0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0};
+    AprilTagData result = {
+        false,
+        0,
+        0.0f,
+        0.0f,
+        0,
+        0,
+        0.0f,
+        0.0f,
+        0.0f,
+        0.0f};
 
     try
     {
@@ -187,7 +197,7 @@ AprilTagData AprilTagTracker::detect(cv::Mat &frame, bool drawOverlay)
 
         // ------------------- AprilTag检测阶段 -------------------
         // 执行标签检测算法
-        zarray_t *detections = apriltag_detector_detect(td, im);
+        zarray_t *detections = apriltag_detector_detect(td, im); // 调用AprilTag库检测函数
 
         // 检测结果数量分类处理
         if (zarray_size(detections) > 1)
@@ -232,16 +242,15 @@ AprilTagData AprilTagTracker::detect(cv::Mat &frame, bool drawOverlay)
             zarray_get(detections, i, &det); // 提取单个检测结果
 
             // 提取标签四边形四个顶点坐标（按顺时针顺序）
-            const cv::Point2f points[4] =
-                {
-                    {det->p[3][0], det->p[3][1]}, // 左上顶点
-                    {det->p[0][0], det->p[0][1]}, // 右上顶点
-                    {det->p[1][0], det->p[1][1]}, // 右下顶点
-                    {det->p[2][0], det->p[2][1]}  // 左下顶点
-                };
+            const cv::Point2f points[4] = {
+                {static_cast<float>(det->p[3][0]), static_cast<float>(det->p[3][1])}, // 左上顶点
+                {static_cast<float>(det->p[0][0]), static_cast<float>(det->p[0][1])}, // 右上顶点
+                {static_cast<float>(det->p[1][0]), static_cast<float>(det->p[1][1])}, // 右下顶点
+                {static_cast<float>(det->p[2][0]), static_cast<float>(det->p[2][1])}  // 左下顶点
+            };
 
-            // 几何验证：检查四边形形状合法性和面积阈值
-            if (!check_quad_geometry(points, binary.cols, binary.rows) || calculateQuadrilateralArea(points) < 100)
+            // 几何验证：检查四边形形状合法性和面积阈值（添加完整4个参数）
+            if (!check_quad_geometry(points, binary.cols, binary.rows, 2.0f) || calculateQuadrilateralArea(points) < 100)
             {
                 continue; // 跳过不合法的检测结果
             }
@@ -285,11 +294,6 @@ AprilTagData AprilTagTracker::detect(cv::Mat &frame, bool drawOverlay)
         // ------------------- 多目标逻辑处理 -------------------
         if (_areas.size() > 1)
         {
-            // 面积差异较大时交换中心点顺序（可能用于目标优先级排序）
-            if (_areas.at(0) > _areas.at(1) && fabs(_areas.at(0) - _areas.at(1)) > 100)
-            {
-                std::swap(result.centers[0], result.centers[1]);
-            }
         }
         else if (_areas.size() > 0)
         {
@@ -309,14 +313,12 @@ AprilTagData AprilTagTracker::detect(cv::Mat &frame, bool drawOverlay)
     {
         // OpenCV特定异常捕获（如格式错误、内存访问错误）
         std::cerr << "OpenCV 异常: " << e.what() << std::endl;
-        result.centers.clear();
         result.width = result.height = 0;
     }
     catch (...)
     {
         // 通用异常捕获（处理其他未知异常）
         std::cerr << "未知异常发生" << std::endl;
-        result.centers.clear();
         result.width = result.height = 0;
     }
 

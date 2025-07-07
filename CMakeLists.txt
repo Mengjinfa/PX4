@@ -34,6 +34,7 @@ add_executable(${PROJECT_NAME}
     src/fly_mission.cpp
     src/user_task.cpp
     src/coordinate_analysis.cpp
+    src/math_library.cpp
     src/main.cpp
 )
 
