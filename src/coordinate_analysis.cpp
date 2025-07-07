@@ -11,48 +11,30 @@
 BeiDouData beidou_data;
 
 // 解析DDMM.MMMMM格式为十进制度
-double convertAndScale(const std::string &str)
+double convertDMMToDD(const std::string &dmmStr)
 {
-    if (str.empty())
-        throw std::invalid_argument("输入字符串为空");
-
-    // 去除前导零
-    size_t firstNonZero = str.find_first_not_of('0');
-    std::string trimmed;
-
-    if (firstNonZero == std::string::npos)
-    {
-        // 全零字符串
-        trimmed = "0";
-    }
-    else
-    {
-        trimmed = str.substr(firstNonZero);
-
-        // 处理小数点在开头的情况
-        if (!trimmed.empty() && trimmed[0] == '.')
-        {
-            trimmed = "0" + trimmed;
-        }
-    }
-
-    // 转换为浮点数
-    double value = 0.0;
+    // 字符串转double
     try
     {
-        value = std::stod(trimmed); // 将字符串转换为双精度浮点数（double）的函数
-    }
-    catch (const std::invalid_argument &)
-    {
-        throw std::invalid_argument("无法转换为有效数字: " + str);
-    }
-    catch (const std::out_of_range &)
-    {
-        throw std::out_of_range("数值超出范围: " + str);
-    }
+        double dmmValue = std::stod(dmmStr);
 
-    // 小数点右移两位
-    return value / 100;
+        // 分离度和分
+        int degrees = static_cast<int>(dmmValue) / 100;
+        double minutes = dmmValue - (degrees * 100);
+
+        // 验证分钟部分是否有效
+        if (minutes < 0 || minutes >= 60)
+        {
+            throw std::invalid_argument("无效的分钟值，必须在0-59.9999范围内");
+        }
+
+        // 转换为十进制度数
+        return degrees + minutes / 60.0;
+    }
+    catch (const std::exception &e)
+    {
+        throw std::invalid_argument("经纬度转换失败: " + std::string(e.what()));
+    }
 }
 
 // 计算NMEA校验和
@@ -142,12 +124,26 @@ bool analyzeBeidouData(const std::string &nmea, BeiDouData &data)
     }
 
     // 解析纬度
-    data.latitudeStr = fields[2];                      // 保存原始字符串
-    data.latitude = convertAndScale(data.latitudeStr); // 十进制
+    data.latitudeStr = fields[2];  // 保存原始字符串
+    if (!data.latitudeStr.empty()) // 非空
+    {
+        data.latitude = convertDMMToDD(data.latitudeStr); // 十进制
+    }
+    else
+    {
+        data.latitude = 0.0;
+    }
 
     // 解析经度
-    data.longitudeStr = fields[4];                       // 保存原始字符串
-    data.longitude = convertAndScale(data.longitudeStr); // 十进制
+    data.longitudeStr = fields[4];  // 保存原始字符串
+    if (!data.longitudeStr.empty()) // 非空
+    {
+        data.longitude = convertDMMToDD(data.longitudeStr); // 十进制
+    }
+    else
+    {
+        data.longitude = 0.0;
+    }
 
     // 解析其他字段
     data.fixStatus = safeConvert<int>(fields[6]).value_or(0); // 定位状态
