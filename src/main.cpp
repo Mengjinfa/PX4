@@ -1,4 +1,5 @@
 #include "coordinate_analysis.hpp"
+#include "file_transfer.hpp"
 #include "flight_procedure.hpp"
 #include "fly_mission.hpp"
 #include "landing_state_machine.hpp"
@@ -30,7 +31,14 @@ int main(int argc, char *argv[])
     mqtt_client::Instance()->subscribeTopic("test", handleTestMessage);       // 订阅test主题
     mqtt_client::Instance()->subscribeTopic("beidou_A", handleBeiDouMessage); // 订阅beidou_A主题
 
-    /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // 设置文件保存目录
+    setFileSaveDirectory("/home/senen/桌面/receive");
+
+    mqtt_client::Instance()->subscribeTopic(FILE_TRANSFER_META_TOPIC, [](const std::vector<unsigned char> &payload) {}); // 订阅文件元数据主题
+    mqtt_client::Instance()->subscribeTopic(FILE_TRANSFER_DATA_TOPIC, [](const std::vector<unsigned char> &payload) {}); // 订阅文件数据块主题
+    mqtt_client::Instance()->subscribeTopic(FILE_ACK_TOPIC, [](const std::vector<unsigned char> &payload) {});           // 订阅文件确认主题
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
     std::string connection_url = "udpin://0.0.0.0:14540";                  // 仿真环境通过UDP连接
     Mavsdk drone_sdk{Mavsdk::Configuration{ComponentType::GroundStation}}; // 创建MAVSDK实例并配置为地面站类型
 
@@ -109,7 +117,7 @@ int main(int argc, char *argv[])
         float current_distance_sensor_m = telemetry_monitor.getCurrentDistanceSensorM();     // 获取当前距离传感器高度
 
         // AprilTagData landmark = tag_tracker::Instance()->process();                        // 处理AprilTag检测结果
-        PIDOutput PID_out = pid::Instance()->Output_PID();                                 // 更新PID结果
+        // PIDOutput PID_out = pid::Instance()->Output_PID();                                 // 更新PID结果
         LandingState state_ = landing_state_machine::Instance()->getCurrentStateMachine(); // 输出状态机处于的模式
 
         // pid::Instance()->getLandmark(landmark); // 获取地标检测数据
@@ -131,10 +139,10 @@ int main(int argc, char *argv[])
             // logMessage += "Landmark:(x: " + std::to_string(landmark.x) + ", y: " + std::to_string(landmark.y) + ")" + "\n";
             // logMessage += "err:(x: " + std::to_string(landmark.err_x) + ", y: " + std::to_string(landmark.err_y) + ")" + "\n";
             // logMessage += "PID:(x: " + std::to_string(PID_out.x) + ", y: " + std::to_string(PID_out.y) + ")" + "\n";
-            // logMessage += "Euler:(yaw: " + std::to_string(euler_angle.yaw_deg) + ", pitch: " + std::to_string(euler_angle.pitch_deg) + ", roll: " + std::to_string(euler_angle.roll_deg) + ")" + "\n";
-            // logMessage += "Position:(x: " + std::to_string(current_position.north_m) + ", y: " + std::to_string(current_position.east_m) + ", z: " + std::to_string(-current_position.down_m) + ")" + "\n";
-            // logMessage += "GPS:(x: " + std::to_string(gps_raw.latitude_deg) + ", y: " + std::to_string(gps_raw.longitude_deg) + ")" + "\n";
-            // logMessage += "distance: " + std::to_string(current_distance_sensor_m) + "\n";
+            logMessage += "Euler:(yaw: " + std::to_string(euler_angle.yaw_deg) + ", pitch: " + std::to_string(euler_angle.pitch_deg) + ", roll: " + std::to_string(euler_angle.roll_deg) + ")" + "\n";
+            logMessage += "Position:(x: " + std::to_string(current_position.north_m) + ", y: " + std::to_string(current_position.east_m) + ", z: " + std::to_string(-current_position.down_m) + ")" + "\n";
+            logMessage += "GPS:(x: " + std::to_string(gps_raw.latitude_deg) + ", y: " + std::to_string(gps_raw.longitude_deg) + ")" + "\n";
+            logMessage += "distance: " + std::to_string(current_distance_sensor_m) + "\n";
 
             mqtt_client::Instance()->sendMessage(REPLAY_TOPIC, logMessage); // 发送MQTT消息 发送到flight_tx主题
 

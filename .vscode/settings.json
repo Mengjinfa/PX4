@@ -78,6 +78,9 @@
         "cfenv": "cpp",
         "core": "cpp",
         "filesystem": "cpp",
-        "cerrno": "cpp"
+        "cerrno": "cpp",
+        "cassert": "cpp",
+        "cfloat": "cpp",
+        "climits": "cpp"
     }
 }

@@ -177,6 +177,30 @@ src/coordinate_analysis.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/coordinate_analysis.cpp.s
 .PHONY : src/coordinate_analysis.cpp.s
 
+src/file_transfer.o: src/file_transfer.cpp.o
+.PHONY : src/file_transfer.o
+
+# target to build an object file
+src/file_transfer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/file_transfer.cpp.o
+.PHONY : src/file_transfer.cpp.o
+
+src/file_transfer.i: src/file_transfer.cpp.i
+.PHONY : src/file_transfer.i
+
+# target to preprocess a source file
+src/file_transfer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/file_transfer.cpp.i
+.PHONY : src/file_transfer.cpp.i
+
+src/file_transfer.s: src/file_transfer.cpp.s
+.PHONY : src/file_transfer.s
+
+# target to generate assembly for a file
+src/file_transfer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/px4.dir/build.make CMakeFiles/px4.dir/src/file_transfer.cpp.s
+.PHONY : src/file_transfer.cpp.s
+
 src/flight_procedure.o: src/flight_procedure.cpp.o
 .PHONY : src/flight_procedure.o
 
@@ -456,6 +480,9 @@ help:
 	@echo "... src/coordinate_analysis.o"
 	@echo "... src/coordinate_analysis.i"
 	@echo "... src/coordinate_analysis.s"
+	@echo "... src/file_transfer.o"
+	@echo "... src/file_transfer.i"
+	@echo "... src/file_transfer.s"
 	@echo "... src/flight_procedure.o"
 	@echo "... src/flight_procedure.i"
 	@echo "... src/flight_procedure.s"

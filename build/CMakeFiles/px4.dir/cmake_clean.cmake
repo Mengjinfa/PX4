@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o.d"
   "CMakeFiles/px4.dir/src/coordinate_analysis.cpp.o"
   "CMakeFiles/px4.dir/src/coordinate_analysis.cpp.o.d"
+  "CMakeFiles/px4.dir/src/file_transfer.cpp.o"
+  "CMakeFiles/px4.dir/src/file_transfer.cpp.o.d"
   "CMakeFiles/px4.dir/src/flight_procedure.cpp.o"
   "CMakeFiles/px4.dir/src/flight_procedure.cpp.o.d"
   "CMakeFiles/px4.dir/src/fly_mission.cpp.o"

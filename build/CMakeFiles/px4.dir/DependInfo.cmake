@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/senen/px4/src/apriltag_tracker.cpp" "CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o" "gcc" "CMakeFiles/px4.dir/src/apriltag_tracker.cpp.o.d"
   "/home/senen/px4/src/coordinate_analysis.cpp" "CMakeFiles/px4.dir/src/coordinate_analysis.cpp.o" "gcc" "CMakeFiles/px4.dir/src/coordinate_analysis.cpp.o.d"
+  "/home/senen/px4/src/file_transfer.cpp" "CMakeFiles/px4.dir/src/file_transfer.cpp.o" "gcc" "CMakeFiles/px4.dir/src/file_transfer.cpp.o.d"
   "/home/senen/px4/src/flight_procedure.cpp" "CMakeFiles/px4.dir/src/flight_procedure.cpp.o" "gcc" "CMakeFiles/px4.dir/src/flight_procedure.cpp.o.d"
   "/home/senen/px4/src/fly_mission.cpp" "CMakeFiles/px4.dir/src/fly_mission.cpp.o" "gcc" "CMakeFiles/px4.dir/src/fly_mission.cpp.o.d"
   "/home/senen/px4/src/landing_state_machine.cpp" "CMakeFiles/px4.dir/src/landing_state_machine.cpp.o" "gcc" "CMakeFiles/px4.dir/src/landing_state_machine.cpp.o.d"
