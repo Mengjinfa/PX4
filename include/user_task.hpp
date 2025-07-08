@@ -16,6 +16,7 @@ struct UserTask
     bool landing_task_flag = false;
     bool waypoint_task_flag = false;
     bool land_mode_flag = false;
+    std::string mission_id; // 存储任务ID
 };
 extern UserTask user_task;
 

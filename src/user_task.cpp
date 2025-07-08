@@ -29,6 +29,7 @@ void handleTestMessage(const std::vector<unsigned char> &payload)
         std::string payloadStr(payload.begin(), payload.end()); // 将二进制负载数据转换为字符串
         json msg = json::parse(payloadStr);                     // 使用JSON解析库解析消息字符串
         std::string command = msg.value("command", "");         // 从JSON对象中提取"command"字段，默认值为空字符串
+        std::string missionID = msg.value("ID", "");            // 提取任务ID，默认值为空字符串
 
         // 根据不同的命令类型执行相应操作
         if (command == "takeoff")
@@ -46,8 +47,9 @@ void handleTestMessage(const std::vector<unsigned char> &payload)
         else if (command == "waypoint")
         {
             user_task.waypoint_task_flag = true;
-            std::cout << "收到航点任务命令" << std::endl;
-            mqtt_client::Instance()->sendMessage(REPLAY_TOPIC, "收到航点任务命令");
+            user_task.mission_id = missionID; // 存储任务ID
+            std::cout << "收到航点任务命令，任务ID: " << missionID << std::endl;
+            mqtt_client::Instance()->sendMessage(REPLAY_TOPIC, "收到航点任务命令，ID: " + missionID);
         }
         else if (command == "land")
         {
@@ -63,7 +65,6 @@ void handleTestMessage(const std::vector<unsigned char> &payload)
     }
     catch (const json::parse_error &e)
     {
-        // 捕获JSON解析过程中可能出现的异常
         std::cerr << "解析消息失败: " << e.what() << std::endl;
         std::cerr << "错误位置: " << e.byte << " 字节" << std::endl;
     }
@@ -96,6 +97,6 @@ void userTaskProcedure(Mavsdk_members &mavsdk)
     {
         user_task.waypoint_task_flag = false;
         std::cout << "执行航点任务" << std::endl;
-        fly_mission(mavsdk, "");
+        fly_mission(mavsdk, determine_mission_file_path(user_task.mission_id));
     }
 }

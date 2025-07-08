@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.10.2"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "",
+			"name" : "Debug",
 			"projects" : 
 			[
 				{
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "px4::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-px4-9abaf182ee4dc14f8e8a.json",
+					"jsonFile" : "target-px4-Debug-cf4c9b2a5bc0e4354220.json",
 					"name" : "px4",
 					"projectIndex" : 0
 				}

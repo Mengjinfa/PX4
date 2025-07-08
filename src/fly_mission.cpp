@@ -287,7 +287,6 @@ static bool execute_and_monitor_mission(mavsdk::Action &action, mavsdk::Mission 
         else
         {
             std::cerr << "检查任务状态失败: " << result << std::endl;
-            // 继续检查，不直接退出
         }
 
         // 短暂休眠避免CPU占用过高
@@ -307,9 +306,6 @@ static bool execute_and_monitor_mission(mavsdk::Action &action, mavsdk::Mission 
  */
 int fly_mission(Mavsdk_members &mavsdk, const std::string &plan_file)
 {
-    Action &action = mavsdk.action;
-    Mission &mission = mavsdk.mission;
-
     std::vector<Mission::MissionItem> mission_items;
 
     // 获取航点数据
@@ -329,7 +325,6 @@ int fly_mission(Mavsdk_members &mavsdk, const std::string &plan_file)
         mission_items = create_custom_waypoints();
     }
 
-    // 上传任务
     if (!upload_mission(mavsdk.mission, mission_items))
     {
         return 0;
@@ -337,4 +332,36 @@ int fly_mission(Mavsdk_members &mavsdk, const std::string &plan_file)
 
     // 执行并监控任务
     return execute_and_monitor_mission(mavsdk.action, mavsdk.mission);
+}
+
+/**
+ * 根据任务类型和标识生成飞行任务文件路径
+ *
+ * @param mission_type 文件名称前缀（如"AB", "XY"等）
+ * @param base_path 基础路径，默认为桌面接收目录
+ * @param file_ext 文件扩展名，默认为".plan"
+ * @return 生成的完整文件路径
+ *
+ * 路径生成规则：
+ * - 基础路径 + 任务类型 + 文件扩展名
+ * - 自动处理路径分隔符，确保生成的路径格式正确
+ */
+std::string determine_mission_file_path(
+    const std::string &mission_type,
+    const std::string &base_path,
+    const std::string &file_ext)
+{
+    std::string full_path = base_path;
+
+    // 确保基础路径以路径分隔符结尾
+    if (!full_path.empty() && full_path.back() != '/')
+    {
+        full_path += '/';
+    }
+
+    // 拼接文件名称前缀和文件扩展名
+    full_path += mission_type + file_ext;
+
+    std::cout << "生成的任务文件路径: " << full_path << std::endl;
+    return full_path;
 }
